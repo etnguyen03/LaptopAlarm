@@ -1,7 +1,27 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LaptopAlarm.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ArmShortcut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ctrl,Alt,A</Value>
+    </Setting>
+    <Setting Name="DisarmShortcut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ctrl,Alt,D</Value>
+    </Setting>
+    <Setting Name="CustomAudioFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="trigger_power" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="trigger_usb" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="onalarm_audio" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="onalarm_audio_default" Type="LaptopAlarm.onalarm_audio_settings" Scope="User">
+      <Value Profile="(Default)">defaultSound</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

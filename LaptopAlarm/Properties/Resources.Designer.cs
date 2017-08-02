@@ -69,23 +69,5 @@ namespace LaptopAlarm.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ctrl,Alt,A.
-        /// </summary>
-        internal static string ArmShortcut {
-            get {
-                return ResourceManager.GetString("ArmShortcut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ctrl,Alt,D.
-        /// </summary>
-        internal static string DisarmShortcut {
-            get {
-                return ResourceManager.GetString("DisarmShortcut", resourceCulture);
-            }
-        }
     }
 }

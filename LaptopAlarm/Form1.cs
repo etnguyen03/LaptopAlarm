@@ -10,11 +10,15 @@ using System.Windows.Forms;
 
 namespace LaptopAlarm
 {
+    public enum onalarm_audio_settings { defaultSound, customSound };
     public partial class Form1 : Form
     {
         private bool allowVisible;
         private bool allowClose;
         private bool arm_letter_entered = false;
+
+        // enums
+        
 
         public Form1()
         {
@@ -24,14 +28,14 @@ namespace LaptopAlarm
         private void Form1_Load(object sender, EventArgs e)
         {
             String[] armShortcut = new String[2];
-            armShortcut = Properties.Resources.ArmShortcut.Split(Convert.ToChar(","));
+            armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
             foreach (String item in armShortcut)
             {
                 textBox1.Text += " " + item + " ";
             }
 
             String[] disarmShortcut = new String[2];
-            disarmShortcut = Properties.Resources.DisarmShortcut.Split(Convert.ToChar(","));
+            disarmShortcut = Properties.Settings.Default.DisarmShortcut.Split(Convert.ToChar(","));
         }
 
         protected override void SetVisibleCore(bool value)
@@ -135,6 +139,79 @@ namespace LaptopAlarm
                 new_arm_shortcut = kbd_item + ",";
             }
             new_arm_shortcut = new_arm_shortcut.Remove(new_arm_shortcut.Length - 1);
+            Properties.Settings.Default.ArmShortcut = new_arm_shortcut;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked)
+            {
+                Properties.Settings.Default.trigger_usb = true;
+            }
+            else
+            {
+                Properties.Settings.Default.trigger_usb = false;
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked == true)
+            {
+                groupBox5.Enabled = true;
+            }
+            else
+            {
+                groupBox5.Enabled = false;
+            }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                button2.Enabled = true;
+                Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.customSound;
+            }
+            else
+            {
+                button2.Enabled = false;
+                Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.defaultSound;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog file_dialog = new OpenFileDialog();
+            file_dialog.Filter = "Audio files (*.wav)|*.wav";
+            if (file_dialog.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.CustomAudioFilePath = file_dialog.FileName;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                Properties.Settings.Default.trigger_power = true;
+            }
+            else
+            {
+                Properties.Settings.Default.trigger_power = false;
+            }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+            {
+                Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.defaultSound;    
+            }
+            else
+            {
+                Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.customSound;
+            }
         }
     }
 }
