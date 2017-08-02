@@ -106,5 +106,77 @@ namespace LaptopAlarm.Properties {
                 this["onalarm_audio_default"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string email_to {
+            get {
+                return ((string)(this["email_to"]));
+            }
+            set {
+                this["email_to"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string email_smtp_server {
+            get {
+                return ((string)(this["email_smtp_server"]));
+            }
+            set {
+                this["email_smtp_server"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool email_smtp_auth {
+            get {
+                return ((bool)(this["email_smtp_auth"]));
+            }
+            set {
+                this["email_smtp_auth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string email_smtp_auth_username {
+            get {
+                return ((string)(this["email_smtp_auth_username"]));
+            }
+            set {
+                this["email_smtp_auth_username"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string email_smtp_auth_password {
+            get {
+                return ((string)(this["email_smtp_auth_password"]));
+            }
+            set {
+                this["email_smtp_auth_password"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool onalarm_email {
+            get {
+                return ((bool)(this["onalarm_email"]));
+            }
+            set {
+                this["onalarm_email"] = value;
+            }
+        }
     }
 }

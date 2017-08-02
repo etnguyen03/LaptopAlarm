@@ -213,5 +213,22 @@ namespace LaptopAlarm
                 Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.customSound;
             }
         }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox5.Checked)
+            {
+                groupBox6.Enabled = true;
+            }
+            else
+            {
+                groupBox6.Enabled = false;
+            }
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
