@@ -14,6 +14,7 @@ namespace LaptopAlarm
     {
         private bool allowVisible;
         private bool allowClose;
+        private bool arm_letter_entered = false;
 
         public Form1()
         {
@@ -24,7 +25,13 @@ namespace LaptopAlarm
         {
             String[] armShortcut = new String[2];
             armShortcut = Properties.Resources.ArmShortcut.Split(Convert.ToChar(","));
-            comboBox1.SelectedItem = armShortcut[0];
+            foreach (String item in armShortcut)
+            {
+                textBox1.Text += " " + item + " ";
+            }
+
+            String[] disarmShortcut = new String[2];
+            disarmShortcut = Properties.Resources.DisarmShortcut.Split(Convert.ToChar(","));
         }
 
         protected override void SetVisibleCore(bool value)
@@ -64,6 +71,70 @@ namespace LaptopAlarm
         private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
         {
 
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control == true)
+            {
+                if (!textBox1.Text.Contains("Ctrl"))
+                {
+                    textBox1.Text += " Ctrl ";
+                }
+            }
+            else if (e.Alt == true)
+            {
+                if (!textBox1.Text.Contains("Alt"))
+                {
+                    textBox1.Text += " Alt ";
+                }
+            }
+            else if (e.Shift == true)
+            {
+                if (!textBox1.Text.Contains("Shift"))
+                {
+                    textBox1.Text += " Shift ";
+                }
+            }
+            else if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
+            {
+                if (textBox1.Text.Contains("Ctrl") || textBox1.Text.Contains("Alt") || textBox1.Text.Contains("Shift"))
+                {
+                    if (arm_letter_entered == false)
+                    {
+                        textBox1.Text += "" + e.KeyCode.ToString() + "";
+                        arm_letter_entered = true;
+                    }
+                }
+                else if (arm_letter_entered == true)
+                {
+                    // empty on purpose
+                }
+                else
+                {
+                    toolTip1.Show("You must first press either Control, Alt, or Shift.", textBox1);
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            arm_letter_entered = false;
+            textBox1.Text = "";
+        }
+
+        private void textBox1_Leave(object sender, EventArgs e)
+        {
+            String textbox_arm = textBox1.Text.Replace("  ", " ");
+            textbox_arm = textbox_arm.Trim();
+
+            String[] new_arm_kbd = textbox_arm.Split(Char.Parse(" "));
+            String new_arm_shortcut = "";
+            foreach (String kbd_item in new_arm_kbd)
+            {
+                new_arm_shortcut = kbd_item + ",";
+            }
+            new_arm_shortcut = new_arm_shortcut.Remove(new_arm_shortcut.Length - 1);
         }
     }
 }
