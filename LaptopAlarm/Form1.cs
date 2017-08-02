@@ -14,6 +14,7 @@ namespace LaptopAlarm
     {
         private bool allowVisible;
         private bool allowClose;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,7 +22,9 @@ namespace LaptopAlarm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            String[] armShortcut = new String[2];
+            armShortcut = Properties.Resources.ArmShortcut.Split(Convert.ToChar(","));
+            comboBox1.SelectedItem = armShortcut[0];
         }
 
         protected override void SetVisibleCore(bool value)
