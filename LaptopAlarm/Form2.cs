@@ -18,7 +18,7 @@ namespace LaptopAlarm
             richTextBox1.Text = alarmDescription;
         }
 
-        public void Close()
+        public void CloseForm()
         {
             this.Close();
         }

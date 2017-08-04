@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AudioSwitcher.AudioApi.CoreAudio;
+using System.Diagnostics;
+using System.Threading;
 
 namespace LaptopAlarm
 {
@@ -20,7 +22,7 @@ namespace LaptopAlarm
         private Alarm myAlarm;
         private bool alarmArmed;
         private Form2 alarmForm = new Form2("There is no alarm. Something has gone wrong. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Thanks!");
-        private CoreAudioDevice playbackDevice = new CoreAudioController().DefaultPlaybackDevice;
+        public CoreAudioDevice playbackDevice = new CoreAudioController().DefaultPlaybackDevice;
 
         public Form1()
         {
@@ -78,6 +80,7 @@ namespace LaptopAlarm
                     CreateHandle();
                 }
             }
+
             base.SetVisibleCore(value);
         }
 
@@ -291,8 +294,8 @@ namespace LaptopAlarm
         {
             alarmArmed = false;
             myAlarm.stopAlarm();
-            timer1.Enabled = false;
-            alarmForm.Close();
+            stopVolProcess = true;
+            alarmForm.CloseForm();
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
         }
 
@@ -311,7 +314,9 @@ namespace LaptopAlarm
                             if (alarmArmed && Properties.Settings.Default.trigger_usb)
                             {
                                myAlarm.causeAlarm();
-                               timer1.Enabled = true;
+                               stopVolProcess = false;
+                               workerVolThread = new Thread(new ThreadStart(setVolume));
+                               workerVolThread.Start();
                                alarmForm = new Form2("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
                                alarmForm.Show();
                             }
@@ -331,34 +336,66 @@ namespace LaptopAlarm
         public static extern IntPtr SendMessageW(IntPtr hWnd, int Msg,
             IntPtr wParam, IntPtr lParam);
 
-        private void Mute()
-        {
-            SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle,
-                (IntPtr)APPCOMMAND_VOLUME_MUTE);
-        }
 
-        private void VolDown()
+        private Thread workerVolThread = null;
+        private bool stopVolProcess;
+        private void setVolume()
         {
-            SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle,
-                (IntPtr)APPCOMMAND_VOLUME_DOWN);
-        }
-
-        private void VolUp()
-        {
-            SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle,
-                (IntPtr)APPCOMMAND_VOLUME_UP);
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (playbackDevice.Volume != 20)
+            while (stopVolProcess == false)
             {
-                playbackDevice.Volume = 20;
-            }
-            if (playbackDevice.IsMuted)
-            {
-                playbackDevice.ToggleMute();
+                playbackDevice.Volume = 10;
+                if (playbackDevice.IsMuted)
+                {
+                    playbackDevice.ToggleMute();
+                }
+                Thread.Sleep(500);
             }
         }
+
+
+
+        //// Volume set function
+        //private void setVolume()
+        //{
+        //    if (playbackDevice.Volume != 20)
+        //    {
+        //        playbackDevice.Volume = 20;
+        //    }
+        //    if (playbackDevice.IsMuted)
+        //    {
+        //        playbackDevice.ToggleMute();
+        //    }
+        //    //playbackDevice.VolumeChanged += new EventHandler<AudioSwitcher.AudioApi.DeviceVolumeChangedArgs>(new VolumeChanged());
+        //    playbackDevice.VolumeChanged.Subscribe(new VolumeChanged());
+            
+        //}
+
+        //public class VolumeChanged : IObserver<AudioSwitcher.AudioApi.CoreAudio.CoreAudioDevice>
+        //{
+        //    private IDisposable unsubscriber;
+        //    private bool first = true;
+        //    private CoreAudioDevice last;
+
+        //    public virtual void Subscribe(IObservable<CoreAudioDevice> provider)
+        //    {
+        //        unsubscriber = provider.Subscribe(this);
+        //    }
+        //    public virtual void Unsubscribe()
+        //    {
+        //        unsubscriber.Dispose();
+        //    }
+        //    public virtual void OnCompleted()
+        //    {
+
+        //    }
+        //    public virtual void OnError(Exception e)
+        //    {
+
+        //    }
+        //    public virtual void OnNext(CoreAudioDevice c)
+        //    {
+
+        //    }
+        //}
     }
 }
