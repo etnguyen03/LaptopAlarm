@@ -264,11 +264,13 @@ namespace LaptopAlarm
             if (button3.Text == "Test alarm")
             {
                 myAlarm.causeAlarm();
+                timer1.Enabled = true;
                 button3.Text = "Stop";
             }
             else
             {
                 myAlarm.stopAlarm();
+                timer1.Enabled = false;
                 button3.Text = "Test alarm";
             }
         }
