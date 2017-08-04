@@ -63,6 +63,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -74,6 +77,7 @@
             this.groupBox3.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip2
@@ -226,6 +230,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.groupBox6);
             this.groupBox4.Controls.Add(this.checkBox3);
             this.groupBox4.Controls.Add(this.groupBox5);
             this.groupBox4.Location = new System.Drawing.Point(6, 90);
@@ -408,6 +413,30 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.button4);
+            this.groupBox6.Location = new System.Drawing.Point(9, 101);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(450, 108);
+            this.groupBox6.TabIndex = 6;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Twitter";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(161, 48);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(140, 23);
+            this.button4.TabIndex = 0;
+            this.button4.Text = "Sign In With Twitter";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(515, 361);
@@ -434,6 +463,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -480,6 +510,9 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
