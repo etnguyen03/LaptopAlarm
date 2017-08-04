@@ -17,5 +17,10 @@ namespace LaptopAlarm
             InitializeComponent();
             richTextBox1.Text = alarmDescription;
         }
+
+        public void Close()
+        {
+            this.Close();
+        }
     }
 }

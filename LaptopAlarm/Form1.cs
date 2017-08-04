@@ -19,6 +19,8 @@ namespace LaptopAlarm
         private bool arm_letter_entered = false;
         private Alarm myAlarm;
         private bool alarmArmed;
+        private Form2 alarmForm = new Form2("There is no alarm. Something has gone wrong. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Thanks!");
+        private CoreAudioDevice playbackDevice = new CoreAudioController().DefaultPlaybackDevice;
 
         public Form1()
         {
@@ -206,6 +208,7 @@ namespace LaptopAlarm
                 button2.Enabled = false;
                 Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.defaultSound;
             }
+            myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -216,6 +219,7 @@ namespace LaptopAlarm
             {
                 Properties.Settings.Default.CustomAudioFilePath = file_dialog.FileName;
             }
+            myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -240,6 +244,7 @@ namespace LaptopAlarm
             {
                 Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.customSound;
             }
+            myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
         }
 
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
@@ -257,6 +262,7 @@ namespace LaptopAlarm
             {
                 Properties.Settings.Default.onalarm_audio_volincrease = false;
             }
+            myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -286,6 +292,7 @@ namespace LaptopAlarm
             alarmArmed = false;
             myAlarm.stopAlarm();
             timer1.Enabled = false;
+            alarmForm.Close();
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
         }
 
@@ -305,8 +312,8 @@ namespace LaptopAlarm
                             {
                                myAlarm.causeAlarm();
                                timer1.Enabled = true;
-                               Form2 alarmForm = new Form2("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
-                                alarmForm.Show();
+                               alarmForm = new Form2("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                               alarmForm.Show();
                             }
                             break;
                     }
@@ -344,8 +351,14 @@ namespace LaptopAlarm
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            CoreAudioDevice playbackDevice = new CoreAudioController().DefaultPlaybackDevice;
-            playbackDevice.Volume = 20;
+            if (playbackDevice.Volume != 20)
+            {
+                playbackDevice.Volume = 20;
+            }
+            if (playbackDevice.IsMuted)
+            {
+                playbackDevice.ToggleMute();
+            }
         }
     }
 }
