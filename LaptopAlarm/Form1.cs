@@ -37,6 +37,20 @@ namespace LaptopAlarm
             disarmShortcut = Properties.Settings.Default.DisarmShortcut.Split(Convert.ToChar(","));
 
             // initialize checkbox settings
+            checkBox1.Checked = Properties.Settings.Default.trigger_power;
+            checkBox2.Checked = Properties.Settings.Default.trigger_usb;
+            checkBox3.Checked = Properties.Settings.Default.onalarm_audio;
+            if (Properties.Settings.Default.onalarm_audio_default == onalarm_audio_settings.defaultSound)
+            {
+                radioButton1.Checked = true;
+                radioButton2.Checked = false;
+            }
+            else
+            {
+                radioButton2.Checked = true;
+                radioButton1.Checked = false;
+            }
+            checkBox4.Checked = Properties.Settings.Default.onalarm_audio_volincrease;
         }
 
         protected override void SetVisibleCore(bool value)
@@ -224,18 +238,6 @@ namespace LaptopAlarm
             else
             {
                 Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.customSound;
-            }
-        }
-
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox5.Checked)
-            {
-                groupBox6.Enabled = true;
-            }
-            else
-            {
-                groupBox6.Enabled = false;
             }
         }
 
