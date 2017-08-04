@@ -178,5 +178,17 @@ namespace LaptopAlarm.Properties {
                 this["onalarm_email"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool onalarm_audio_volincrease {
+            get {
+                return ((bool)(this["onalarm_audio_volincrease"]));
+            }
+            set {
+                this["onalarm_audio_volincrease"] = value;
+            }
+        }
     }
 }

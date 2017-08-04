@@ -16,9 +16,8 @@ namespace LaptopAlarm
         private bool allowVisible;
         private bool allowClose;
         private bool arm_letter_entered = false;
-
-        // enums
-        
+        private Alarm myAlarm;
+        private bool alarmArmed;
 
         public Form1()
         {
@@ -40,6 +39,18 @@ namespace LaptopAlarm
 
         protected override void SetVisibleCore(bool value)
         {
+            // Program load:
+            myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
+            String[] armShortcut = new String[2];
+            armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
+            foreach (String item in armShortcut)
+            {
+                if (item.Length == 1)
+                {
+                    
+                }
+            }
+
             if (allowVisible == false)
             {
                 value = false;
@@ -229,6 +240,71 @@ namespace LaptopAlarm
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox4.Checked)
+            {
+                Properties.Settings.Default.onalarm_audio_volincrease = true;
+            }
+            else
+            {
+                Properties.Settings.Default.onalarm_audio_volincrease = false;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (button3.Text == "Test alarm")
+            {
+                myAlarm.causeAlarm();
+                button3.Text = "Stop";
+            }
+            else
+            {
+                myAlarm.stopAlarm();
+                button3.Text = "Test alarm";
+            }
+        }
+
+        // Arm tool strip menu
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            alarmArmed = true;
+            notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Armed", ToolTipIcon.Info);
+        }
+
+        // Disarm tool strip menu
+        public void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            alarmArmed = false;
+            myAlarm.stopAlarm();
+            notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
+        }
+
+        // USB drive detector
+        private const int WM_DEVICECHANGE = 0x219;
+        private const int DBT_DEVICEREMOVECOMPLETE = 0x8004;
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            switch (m.Msg)
+            {
+                case WM_DEVICECHANGE:
+                    switch ((int)m.WParam)
+                    {
+                        case DBT_DEVICEREMOVECOMPLETE:
+                            if (alarmArmed)
+                            {
+                               myAlarm.causeAlarm();
+                               Form2 alarmForm = new Form2();
+                                alarmForm.Show();
+                            }
+                            break;
+                    }
+                    break;
+            }
         }
     }
 }
