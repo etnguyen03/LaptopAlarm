@@ -35,6 +35,8 @@ namespace LaptopAlarm
 
             String[] disarmShortcut = new String[2];
             disarmShortcut = Properties.Settings.Default.DisarmShortcut.Split(Convert.ToChar(","));
+
+            // initialize checkbox settings
         }
 
         protected override void SetVisibleCore(bool value)
@@ -295,10 +297,10 @@ namespace LaptopAlarm
                     switch ((int)m.WParam)
                     {
                         case DBT_DEVICEREMOVECOMPLETE:
-                            if (alarmArmed)
+                            if (alarmArmed && Properties.Settings.Default.trigger_usb)
                             {
                                myAlarm.causeAlarm();
-                               Form2 alarmForm = new Form2();
+                               Form2 alarmForm = new Form2("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
                                 alarmForm.Show();
                             }
                             break;
