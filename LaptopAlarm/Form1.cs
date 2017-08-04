@@ -287,6 +287,13 @@ namespace LaptopAlarm
         {
             alarmArmed = true;
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Armed", ToolTipIcon.Info);
+
+            if (Properties.Settings.Default.trigger_power)
+            {
+                stopBatProcess = false;
+                workerBatThread = new Thread(new ThreadStart(monitorBattery));
+                workerBatThread.Start();
+            }
         }
 
         // Disarm tool strip menu
@@ -295,6 +302,7 @@ namespace LaptopAlarm
             alarmArmed = false;
             myAlarm.stopAlarm();
             stopVolProcess = true;
+            workerVolThread.Abort();
             alarmForm.CloseForm();
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
         }
@@ -317,6 +325,7 @@ namespace LaptopAlarm
                                stopVolProcess = false;
                                workerVolThread = new Thread(new ThreadStart(setVolume));
                                workerVolThread.Start();
+                               notifyIcon2.ShowBalloonTip(1000, "ALARM", "USB Device Removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
                                alarmForm = new Form2("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
                                alarmForm.Show();
                             }
@@ -324,6 +333,33 @@ namespace LaptopAlarm
                     }
                     break;
             }
+        }
+
+        // battery detector
+        private Thread workerBatThread = null;
+        private bool stopBatProcess;
+        private PowerStatus powerStatus = SystemInformation.PowerStatus;
+        private void monitorBattery()
+        {
+            while (stopBatProcess == false)
+            {
+                if (powerStatus.PowerLineStatus != PowerLineStatus.Online)
+                {
+                    if (alarmArmed && Properties.Settings.Default.trigger_power)
+                    {
+                        myAlarm.causeAlarm();
+                        stopVolProcess = false;
+                        workerVolThread = new Thread(new ThreadStart(setVolume));
+                        workerVolThread.Start();
+                        notifyIcon2.ShowBalloonTip(1000, "ALARM", "AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
+                        alarmForm = new Form2("ALARM: AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                        alarmForm.Show();
+                        stopBatProcess = true;
+                    }
+                }
+                Thread.Sleep(1000);
+            }
+            workerBatThread.Abort();
         }
 
         // volume controls
