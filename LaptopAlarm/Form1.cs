@@ -287,6 +287,8 @@ namespace LaptopAlarm
         {
             alarmArmed = true;
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Armed", ToolTipIcon.Info);
+            toolStripMenuItem2.Enabled = false;
+            toolStripMenuItem3.Enabled = true;
 
             if (Properties.Settings.Default.trigger_power)
             {
@@ -305,6 +307,9 @@ namespace LaptopAlarm
             workerVolThread.Abort();
             alarmForm.CloseForm();
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
+
+            toolStripMenuItem2.Enabled = true;
+            toolStripMenuItem3.Enabled = false;
         }
 
         // USB drive detector
@@ -335,6 +340,17 @@ namespace LaptopAlarm
             }
         }
 
+        private void batteryAlarm()
+        {
+            myAlarm.causeAlarm();
+            stopVolProcess = false;
+            workerVolThread = new Thread(new ThreadStart(setVolume));
+            workerVolThread.Start();
+            notifyIcon2.ShowBalloonTip(1000, "ALARM", "AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
+            alarmForm = new Form2("ALARM: AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            alarmForm.Show();
+        }
+
         // battery detector
         private Thread workerBatThread = null;
         private bool stopBatProcess;
@@ -347,14 +363,8 @@ namespace LaptopAlarm
                 {
                     if (alarmArmed && Properties.Settings.Default.trigger_power)
                     {
-                        myAlarm.causeAlarm();
-                        stopVolProcess = false;
-                        workerVolThread = new Thread(new ThreadStart(setVolume));
-                        workerVolThread.Start();
-                        notifyIcon2.ShowBalloonTip(1000, "ALARM", "AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
-                        alarmForm = new Form2("ALARM: AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
-                        alarmForm.Show();
-                        stopBatProcess = true;
+                        batteryAlarm();
+                        workerBatThread.Abort();
                     }
                 }
                 Thread.Sleep(1000);
@@ -379,7 +389,7 @@ namespace LaptopAlarm
         {
             while (stopVolProcess == false)
             {
-                playbackDevice.Volume = 10;
+                playbackDevice.Volume = 50;
                 if (playbackDevice.IsMuted)
                 {
                     playbackDevice.ToggleMute();
