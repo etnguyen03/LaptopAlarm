@@ -81,6 +81,9 @@ namespace LaptopAlarm
                 }
             }
 
+            workerBatThread = new Thread(new ThreadStart(monitorBattery));
+            workerVolThread = new Thread(new ThreadStart(setVolume));
+
             base.SetVisibleCore(value);
         }
 
@@ -304,7 +307,14 @@ namespace LaptopAlarm
             alarmArmed = false;
             myAlarm.stopAlarm();
             stopVolProcess = true;
-            workerVolThread.Abort();
+            if (workerVolThread.IsAlive == true)
+            {
+                workerVolThread.Abort();
+            }
+            if (workerBatThread.IsAlive == true)
+            {
+                workerBatThread.Abort();
+            }
             alarmForm.CloseForm();
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
 
