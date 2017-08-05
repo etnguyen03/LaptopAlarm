@@ -176,6 +176,7 @@ namespace LaptopAlarm
             }
             new_arm_shortcut = new_arm_shortcut.Remove(new_arm_shortcut.Length - 1);
             Properties.Settings.Default.ArmShortcut = new_arm_shortcut;
+            Properties.Settings.Default.Save();
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
@@ -188,6 +189,8 @@ namespace LaptopAlarm
             {
                 Properties.Settings.Default.trigger_usb = false;
             }
+
+            Properties.Settings.Default.Save();
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -215,6 +218,7 @@ namespace LaptopAlarm
                 Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.defaultSound;
             }
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
+            Properties.Settings.Default.Save();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -226,6 +230,7 @@ namespace LaptopAlarm
                 Properties.Settings.Default.CustomAudioFilePath = file_dialog.FileName;
             }
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
+            Properties.Settings.Default.Save();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -238,6 +243,7 @@ namespace LaptopAlarm
             {
                 Properties.Settings.Default.trigger_power = false;
             }
+            Properties.Settings.Default.Save();
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -251,6 +257,7 @@ namespace LaptopAlarm
                 Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.customSound;
             }
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
+            Properties.Settings.Default.Save();
         }
 
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
@@ -269,6 +276,7 @@ namespace LaptopAlarm
                 Properties.Settings.Default.onalarm_audio_volincrease = false;
             }
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
+            Properties.Settings.Default.Save();
         }
 
         private void button3_Click(object sender, EventArgs e)
