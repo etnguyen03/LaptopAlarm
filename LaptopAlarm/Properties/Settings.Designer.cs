@@ -202,5 +202,17 @@ namespace LaptopAlarm.Properties {
                 this["onalarm_set_volumeto"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool trigger_battery {
+            get {
+                return ((bool)(this["trigger_battery"]));
+            }
+            set {
+                this["trigger_battery"] = value;
+            }
+        }
     }
 }

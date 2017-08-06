@@ -69,6 +69,7 @@ namespace LaptopAlarm
                 radioButton1.Checked = false;
             }
             checkBox4.Checked = Properties.Settings.Default.onalarm_audio_volincrease;
+            checkBox5.Checked = Properties.Settings.Default.trigger_battery;
         }
 
         protected override void SetVisibleCore(bool value)
@@ -201,7 +202,7 @@ namespace LaptopAlarm
                 }
             }
 
-            workerBatThread = new Thread(new ThreadStart(monitorBattery));
+            workerPowerThread = new Thread(new ThreadStart(monitorPower));
             workerVolThread = new Thread(new ThreadStart(setVolume));
 
             base.SetVisibleCore(value);
@@ -236,7 +237,13 @@ namespace LaptopAlarm
 
                     if (Properties.Settings.Default.trigger_power)
                     {
-                        stopBatProcess = false;
+                        StopPowerProcess = false;
+                        workerPowerThread = new Thread(new ThreadStart(monitorPower));
+                        workerPowerThread.Start();
+                    }
+                    if (Properties.Settings.Default.trigger_battery)
+                    {
+                        StopBatProcess = false;
                         workerBatThread = new Thread(new ThreadStart(monitorBattery));
                         workerBatThread.Start();
                     }
@@ -253,6 +260,10 @@ namespace LaptopAlarm
                     if (workerVolThread.IsAlive == true)
                     {
                         workerVolThread.Abort();
+                    }
+                    if (workerPowerThread.IsAlive == true)
+                    {
+                        workerPowerThread.Abort();
                     }
                     if (workerBatThread.IsAlive == true)
                     {
@@ -452,7 +463,6 @@ namespace LaptopAlarm
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
             Properties.Settings.Default.Save();
         }
-
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -463,10 +473,12 @@ namespace LaptopAlarm
             if (checkBox4.Checked)
             {
                 Properties.Settings.Default.onalarm_audio_volincrease = true;
+                trackBar1.Enabled = true;
             }
             else
             {
                 Properties.Settings.Default.onalarm_audio_volincrease = false;
+                trackBar1.Enabled = false;
             }
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
             Properties.Settings.Default.Save();
@@ -497,7 +509,13 @@ namespace LaptopAlarm
 
             if (Properties.Settings.Default.trigger_power)
             {
-                stopBatProcess = false;
+                StopPowerProcess = false;
+                workerPowerThread = new Thread(new ThreadStart(monitorPower));
+                workerPowerThread.Start();
+            }
+            if (Properties.Settings.Default.trigger_battery)
+            {
+                StopBatProcess = false;
                 workerBatThread = new Thread(new ThreadStart(monitorBattery));
                 workerBatThread.Start();
             }
@@ -512,6 +530,10 @@ namespace LaptopAlarm
             if (workerVolThread.IsAlive == true)
             {
                 workerVolThread.Abort();
+            }
+            if (workerPowerThread.IsAlive == true)
+            {
+                workerPowerThread.Abort();
             }
             if (workerBatThread.IsAlive == true)
             {
@@ -552,7 +574,7 @@ namespace LaptopAlarm
             }
         }
 
-        private void batteryAlarm()
+        private void powerAlarm()
         {
             myAlarm.causeAlarm();
             stopVolProcess = false;
@@ -561,26 +583,58 @@ namespace LaptopAlarm
             notifyIcon2.ShowBalloonTip(1000, "ALARM", "AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
             alarmForm = new Form2("ALARM: AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             alarmForm.Show();
-            workerBatThread.Abort();
+            workerPowerThread.Abort();
         }
 
-        // battery detector
-        private Thread workerBatThread = null;
-        private bool stopBatProcess;
+        // power detector
+        private Thread workerPowerThread = null;
+        private bool StopPowerProcess;
         private PowerStatus powerStatus = SystemInformation.PowerStatus;
-        private void monitorBattery()
+        private void monitorPower()
         {
-            while (stopBatProcess == false)
+            while (StopPowerProcess == false)
             {
                 if (powerStatus.PowerLineStatus != PowerLineStatus.Online)
                 {
                     if (alarmArmed && Properties.Settings.Default.trigger_power)
+                    {
+                        powerAlarm();
+                    }
+                }
+                Thread.Sleep(1000);
+            }
+            workerPowerThread.Abort();
+        }
+
+        // battery removal detector
+        private Thread workerBatThread = null;
+        private bool StopBatProcess;
+        private PowerStatus batteryStatus = SystemInformation.PowerStatus;
+        private void monitorBattery()
+        {
+            while (StopBatProcess == false)
+            {
+                if (batteryStatus.BatteryChargeStatus == BatteryChargeStatus.NoSystemBattery || batteryStatus.BatteryChargeStatus == BatteryChargeStatus.Unknown)
+                {
+                    if (alarmArmed && Properties.Settings.Default.trigger_battery)
                     {
                         batteryAlarm();
                     }
                 }
                 Thread.Sleep(1000);
             }
+            workerBatThread.Abort();
+        }
+
+        private void batteryAlarm()
+        {
+            myAlarm.causeAlarm();
+            stopVolProcess = false;
+            workerVolThread = new Thread(new ThreadStart(setVolume));
+            workerVolThread.Start();
+            notifyIcon2.ShowBalloonTip(1000, "ALARM", "Battery removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
+            alarmForm = new Form2("ALARM: Battery removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            alarmForm.Show();
             workerBatThread.Abort();
         }
 
@@ -736,6 +790,12 @@ namespace LaptopAlarm
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             Properties.Settings.Default.onalarm_set_volumeto = trackBar1.Value;
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.trigger_battery = checkBox5.Checked;
             Properties.Settings.Default.Save();
         }
 

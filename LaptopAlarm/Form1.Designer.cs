@@ -70,6 +70,8 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -376,6 +378,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.checkBox5);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.checkBox2);
@@ -390,7 +394,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(256, 39);
+            this.label5.Location = new System.Drawing.Point(170, 39);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(140, 26);
             this.label5.TabIndex = 3;
@@ -408,7 +412,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(259, 19);
+            this.checkBox2.Location = new System.Drawing.Point(173, 19);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(85, 17);
             this.checkBox2.TabIndex = 1;
@@ -486,6 +490,26 @@
             this.label6.TabIndex = 7;
             this.label6.Text = "New\r\nvolume:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(319, 39);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(129, 26);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Alarm will sound if laptop\'s\r\nbattery is removed";
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(322, 19);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(104, 17);
+            this.checkBox5.TabIndex = 4;
+            this.checkBox5.Text = "Battery Removal";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
             // Form1
             // 
@@ -569,6 +593,8 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkBox5;
     }
 }
 
