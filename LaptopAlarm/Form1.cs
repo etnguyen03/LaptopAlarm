@@ -64,11 +64,19 @@ namespace LaptopAlarm
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
             String[] armShortcut = new String[2];
             armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
+            Keys[] keyList = new Keys[1];
+            KeyModifiers[] keyModifierList = new KeyModifiers[3];
+            int i = 0;
             foreach (String item in armShortcut)
             {
                 if (item.Length == 1)
                 {
-                    
+                    keyList[0] = (Keys)Enum.Parse(typeof(Keys), item);
+                }
+                else
+                {
+                    keyModifierList[i] = (KeyModifiers)Enum.Parse(typeof(KeyModifiers), item);
+                    i++;
                 }
             }
 
@@ -117,9 +125,9 @@ namespace LaptopAlarm
         {
             if (e.Control == true)
             {
-                if (!textBox1.Text.Contains("Ctrl"))
+                if (!textBox1.Text.Contains("Control"))
                 {
-                    textBox1.Text += " Ctrl ";
+                    textBox1.Text += " Control ";
                 }
             }
             else if (e.Alt == true)
@@ -138,7 +146,7 @@ namespace LaptopAlarm
             }
             else if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
             {
-                if (textBox1.Text.Contains("Ctrl") || textBox1.Text.Contains("Alt") || textBox1.Text.Contains("Shift"))
+                if (textBox1.Text.Contains("Control") || textBox1.Text.Contains("Alt") || textBox1.Text.Contains("Shift"))
                 {
                     if (arm_letter_entered == false)
                     {
@@ -276,7 +284,7 @@ namespace LaptopAlarm
                 Properties.Settings.Default.onalarm_audio_volincrease = false;
             }
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
-            Properties.Settings.Default.Save();
+        Properties.Settings.Default.Save();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -367,6 +375,7 @@ namespace LaptopAlarm
             notifyIcon2.ShowBalloonTip(1000, "ALARM", "AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
             alarmForm = new Form2("ALARM: AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             alarmForm.Show();
+            workerBatThread.Abort();
         }
 
         // battery detector
@@ -382,7 +391,6 @@ namespace LaptopAlarm
                     if (alarmArmed && Properties.Settings.Default.trigger_power)
                     {
                         batteryAlarm();
-                        workerBatThread.Abort();
                     }
                 }
                 Thread.Sleep(1000);
@@ -402,7 +410,7 @@ namespace LaptopAlarm
 
 
         private Thread workerVolThread = null;
-        private bool stopVolProcess;
+        private bool stopVolProcess = false;
         private void setVolume()
         {
             while (stopVolProcess == false)
@@ -414,6 +422,11 @@ namespace LaptopAlarm
                 }
                 Thread.Sleep(500);
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
 

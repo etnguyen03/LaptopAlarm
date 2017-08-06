@@ -25,7 +25,7 @@ namespace LaptopAlarm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Ctrl,Alt,A")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control,Alt,A")]
         public string ArmShortcut {
             get {
                 return ((string)(this["ArmShortcut"]));
@@ -37,7 +37,7 @@ namespace LaptopAlarm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Ctrl,Alt,D")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control,Alt,D")]
         public string DisarmShortcut {
             get {
                 return ((string)(this["DisarmShortcut"]));

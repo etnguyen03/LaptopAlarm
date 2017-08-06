@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="ArmShortcut" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Ctrl,Alt,A</Value>
+      <Value Profile="(Default)">Control,Alt,A</Value>
     </Setting>
     <Setting Name="DisarmShortcut" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Ctrl,Alt,D</Value>
+      <Value Profile="(Default)">Control,Alt,D</Value>
     </Setting>
     <Setting Name="CustomAudioFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
