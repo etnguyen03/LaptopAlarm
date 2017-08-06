@@ -98,32 +98,31 @@ namespace LaptopAlarm
             arm_key_modifiers = keyModifierList;
 
             // register keyboard shortcut
-
             if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))))
             {
                 HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Shift | KeyModifiers.Alt);
             }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && keyModifierList.Length == 3))
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt"))))
             {
                 HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Alt);
             }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && keyModifierList.Length == 3))
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift"))))
             {
                 HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Shift);
             }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && keyModifierList.Length == 3))
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift"))))
             {
                 HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt | KeyModifiers.Shift);
             }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && keyModifierList.Length == 2)
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")))
             {
                 HotKeyManager.RegisterHotKey(key, KeyModifiers.Control);
             }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && keyModifierList.Length == 2)
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))
             {
                 HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt);
             }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && keyModifierList.Length == 2)
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")))
             {
                 HotKeyManager.RegisterHotKey(key, KeyModifiers.Shift);
             }
@@ -161,27 +160,27 @@ namespace LaptopAlarm
             {
                 HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control | KeyModifiers.Shift | KeyModifiers.Alt);
             }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && disarmKeyModifierList.Length == 3))
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift"))))
             {
                 HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control | KeyModifiers.Shift);
             }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && disarmKeyModifierList.Length == 3))
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift"))))
             {
                 HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Alt | KeyModifiers.Shift);
             }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && disarmKeyModifierList.Length == 3))
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt"))))
             {
                 HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control | KeyModifiers.Alt);
             }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && disarmKeyModifierList.Length == 2)
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")))
             {
                 HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control);
             }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && disarmKeyModifierList.Length == 2)
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))
             {
                 HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Alt);
             }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && disarmKeyModifierList.Length == 2)
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")))
             {
                 HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Shift);
             }

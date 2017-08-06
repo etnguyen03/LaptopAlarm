@@ -34,6 +34,7 @@
   <PropertyGroup>
     <ApplicationIcon>alarm copy.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="AudioSwitcher.AudioApi">
       <HintPath>..\packages\AudioSwitcher.AudioApi.3.0.0\lib\net40\AudioSwitcher.AudioApi.dll</HintPath>
