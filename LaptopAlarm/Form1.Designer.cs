@@ -40,6 +40,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -65,9 +67,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.button5 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label6 = new System.Windows.Forms.Label();
             this.contextMenuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -80,6 +82,7 @@
             this.groupBox3.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip2
@@ -170,6 +173,26 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Disarming";
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(393, 26);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "Clear";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.White;
+            this.textBox2.Location = new System.Drawing.Point(114, 28);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(273, 20);
+            this.textBox2.TabIndex = 6;
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -249,9 +272,9 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.button4);
-            this.groupBox6.Location = new System.Drawing.Point(9, 101);
+            this.groupBox6.Location = new System.Drawing.Point(9, 132);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(450, 108);
+            this.groupBox6.Size = new System.Drawing.Size(450, 77);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Twitter";
@@ -280,6 +303,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label6);
+            this.groupBox5.Controls.Add(this.trackBar1);
             this.groupBox5.Controls.Add(this.button3);
             this.groupBox5.Controls.Add(this.button2);
             this.groupBox5.Controls.Add(this.checkBox4);
@@ -287,15 +312,15 @@
             this.groupBox5.Controls.Add(this.radioButton1);
             this.groupBox5.Location = new System.Drawing.Point(9, 19);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(456, 76);
+            this.groupBox5.Size = new System.Drawing.Size(456, 107);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(346, 44);
+            this.button3.Location = new System.Drawing.Point(13, 73);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(104, 23);
+            this.button3.Size = new System.Drawing.Size(205, 23);
             this.button3.TabIndex = 5;
             this.button3.Text = "Test alarm";
             this.button3.UseVisualStyleBackColor = true;
@@ -306,7 +331,7 @@
             this.button2.Enabled = false;
             this.button2.Location = new System.Drawing.Point(114, 44);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(104, 23);
             this.button2.TabIndex = 4;
             this.button2.Text = "Choose";
             this.button2.UseVisualStyleBackColor = true;
@@ -317,11 +342,11 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Checked = true;
             this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Location = new System.Drawing.Point(346, 11);
+            this.checkBox4.Location = new System.Drawing.Point(227, 28);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(104, 30);
+            this.checkBox4.Size = new System.Drawing.Size(147, 17);
             this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "Increase volume\r\non alarm\r\n";
+            this.checkBox4.Text = "Increase volume on alarm";
             this.checkBox4.UseVisualStyleBackColor = true;
             this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
@@ -438,29 +463,29 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(393, 26);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "Clear";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(114, 28);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(273, 20);
-            this.textBox2.TabIndex = 6;
-            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
-            // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(271, 51);
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(179, 45);
+            this.trackBar1.TabIndex = 6;
+            this.trackBar1.Value = 80;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(224, 60);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 26);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "New\r\nvolume:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Form1
             // 
@@ -468,6 +493,7 @@
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "LaptopAlarm";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -489,6 +515,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -540,6 +567,8 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox textBox2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }
 

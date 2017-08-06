@@ -258,7 +258,7 @@ namespace LaptopAlarm
                     {
                         workerBatThread.Abort();
                     }
-                    alarmForm.CloseForm();
+                    alarmForm.form2_close = true;
                     notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
 
                     toggleToolStripMenuItems();
@@ -469,7 +469,7 @@ namespace LaptopAlarm
                 Properties.Settings.Default.onalarm_audio_volincrease = false;
             }
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
-        Properties.Settings.Default.Save();
+            Properties.Settings.Default.Save();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -517,7 +517,7 @@ namespace LaptopAlarm
             {
                 workerBatThread.Abort();
             }
-            alarmForm.CloseForm();
+            alarmForm.form2_close = true;
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
 
             toolStripMenuItem2.Enabled = true;
@@ -601,7 +601,7 @@ namespace LaptopAlarm
         {
             while (stopVolProcess == false)
             {
-                playbackDevice.Volume = 50;
+                playbackDevice.Volume = Properties.Settings.Default.onalarm_set_volumeto;
                 if (playbackDevice.IsMuted)
                 {
                     playbackDevice.ToggleMute();
@@ -731,6 +731,12 @@ namespace LaptopAlarm
                     toolStripMenuItem3.Enabled = true;
                 }
             }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.onalarm_set_volumeto = trackBar1.Value;
+            Properties.Settings.Default.Save();
         }
 
 

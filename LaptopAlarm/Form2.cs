@@ -12,15 +12,19 @@ namespace LaptopAlarm
 {
     public partial class Form2 : Form
     {
+        public bool form2_close = false;
         public Form2(String alarmDescription)
         {
             InitializeComponent();
             richTextBox1.Text = alarmDescription;
         }
 
-        public void CloseForm()
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            this.Close();
+            if (form2_close == true)
+            {
+                this.Close();
+            }
         }
     }
 }

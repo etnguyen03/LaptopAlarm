@@ -190,5 +190,17 @@ namespace LaptopAlarm.Properties {
                 this["onalarm_audio_volincrease"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int onalarm_set_volumeto {
+            get {
+                return ((int)(this["onalarm_set_volumeto"]));
+            }
+            set {
+                this["onalarm_set_volumeto"] = value;
+            }
+        }
     }
 }
