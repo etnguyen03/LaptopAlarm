@@ -425,7 +425,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(14, 11);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(375, 286);
+            this.label3.Size = new System.Drawing.Size(375, 273);
             this.label3.TabIndex = 0;
             this.label3.Text = resources.GetString("label3.Text");
             // 

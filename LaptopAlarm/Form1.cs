@@ -64,14 +64,14 @@ namespace LaptopAlarm
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
             String[] armShortcut = new String[2];
             armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
-            Keys[] keyList = new Keys[1];
+            Keys key = new Keys();
             KeyModifiers[] keyModifierList = new KeyModifiers[3];
             int i = 0;
             foreach (String item in armShortcut)
             {
                 if (item.Length == 1)
                 {
-                    keyList[0] = (Keys)Enum.Parse(typeof(Keys), item);
+                    key = (Keys)Enum.Parse(typeof(Keys), item);
                 }
                 else
                 {
@@ -79,6 +79,46 @@ namespace LaptopAlarm
                     i++;
                 }
             }
+
+            if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && keyModifierList.Length == 2)
+            {
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control);
+            }
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && keyModifierList.Length == 2)
+            {
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt);
+            }
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && keyModifierList.Length == 2)
+            {
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Shift);
+            }
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && keyModifierList.Length == 3))
+            {
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Alt);
+            }
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && keyModifierList.Length == 3))
+            {
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Shift);
+            }
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && keyModifierList.Length == 3))
+            {
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt | KeyModifiers.Shift);
+            }
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && keyModifierList.Length == 3))
+            {
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Shift);
+            }
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))))
+            {
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Shift | KeyModifiers.Alt);
+            }
+            else
+            {
+                MessageBox.Show("An error has occured. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Error code ARM_KBD_ELSE");
+                throw new InvalidExpressionException();
+            }
+            //HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt | KeyModifiers.Control);
+            HotKeyManager.HotKeyPressed += HotKeyManager_HotKeyPressed;
 
             if (allowVisible == false)
             {
@@ -93,6 +133,12 @@ namespace LaptopAlarm
             workerVolThread = new Thread(new ThreadStart(setVolume));
 
             base.SetVisibleCore(value);
+        }
+
+        private void HotKeyManager_HotKeyPressed(object sender, HotKeyEventArgs e)
+        {
+            // arm the alarm
+            toolStripMenuItem2_Click(sender, e);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
