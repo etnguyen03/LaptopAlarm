@@ -390,6 +390,20 @@ namespace LaptopAlarm
             {
                 button2.Enabled = true;
                 Properties.Settings.Default.onalarm_audio_default = onalarm_audio_settings.customSound;
+                if (Properties.Settings.Default.CustomAudioFilePath == "" || Properties.Settings.Default.CustomAudioFilePath == null)
+                {
+                    OpenFileDialog file_dialog = new OpenFileDialog();
+                    file_dialog.Filter = "Audio files (*.wav)|*.wav";
+                    if (file_dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        Properties.Settings.Default.CustomAudioFilePath = file_dialog.FileName;
+                    }
+                    else
+                    {
+                        radioButton1.Checked = true;
+                        radioButton2.Checked = false;
+                    }
+                }
             }
             else
             {
