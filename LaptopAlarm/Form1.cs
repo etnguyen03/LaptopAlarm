@@ -211,18 +211,59 @@ namespace LaptopAlarm
         // hotkey pressed
         private void HotKeyManager_HotKeyPressed(object sender, HotKeyEventArgs e)
         {
-            MessageBox.Show(e.Modifiers.ToString());
-            MessageBox.Show(e.Key.ToString());
-            // arm the alarm
-            alarmArmed = true;
-            notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Armed", ToolTipIcon.Info);
-            backgroundWorker1.RunWorkerAsync();
-
-            if (Properties.Settings.Default.trigger_power)
+            bool isArm = true;
+            foreach (var item in arm_key_modifiers)
             {
-                stopBatProcess = false;
-                workerBatThread = new Thread(new ThreadStart(monitorBattery));
-                workerBatThread.Start();
+                if (item != 0)
+                {
+                    if (!e.Modifiers.ToString().Contains(item.ToString()))
+                    {
+                        isArm = false;
+                    }
+                }
+            }
+            if (e.Key.ToString() != arm_key.ToString())
+            {
+                isArm = false;
+            }
+            if (isArm)
+            {
+                if (alarmArmed == false)
+                {
+                    // arm the alarm
+                    alarmArmed = true;
+                    notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Armed", ToolTipIcon.Info);
+                    toggleToolStripMenuItems();
+
+                    if (Properties.Settings.Default.trigger_power)
+                    {
+                        stopBatProcess = false;
+                        workerBatThread = new Thread(new ThreadStart(monitorBattery));
+                        workerBatThread.Start();
+                    }
+                }
+            }
+            else
+            {
+                
+                if (alarmArmed == true)
+                {
+                    alarmArmed = false;
+                    myAlarm.stopAlarm();
+                    stopVolProcess = true;
+                    if (workerVolThread.IsAlive == true)
+                    {
+                        workerVolThread.Abort();
+                    }
+                    if (workerBatThread.IsAlive == true)
+                    {
+                        workerBatThread.Abort();
+                    }
+                    alarmForm.CloseForm();
+                    notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
+
+                    toggleToolStripMenuItems();
+                }
             }
         }
 
@@ -611,12 +652,73 @@ namespace LaptopAlarm
             textBox2.Text = "";
         }
 
+        public void toggleToolStripMenuItems()
+        {
+            //if (toolStripMenuItem2.Enabled == true)
+            //{
+            //    toolStripMenuItem2.Enabled = false;
+            //}
+            //else
+            //{
+            //    toolStripMenuItem2.Enabled = true;
+            //}
+            //if (toolStripMenuItem3.Enabled == true)
+            //{
+            //    toolStripMenuItem3.Enabled = false;
+            //}
+            //else
+            //{
+            //    toolStripMenuItem3.Enabled = true;
+            //}
+            backgroundWorker1.RunWorkerAsync();
+        }
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            toolStripMenuItem2.Enabled = false;
-            toolStripMenuItem3.Enabled = true;
+            if (toolStripMenuItem2.Enabled == true)
+            {
+                if (contextMenuStrip2.InvokeRequired)
+                {
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = false; }));
+                }
+                else
+                {
+                    toolStripMenuItem2.Enabled = false;
+                }
+            }
+            else
+            {
+                if (contextMenuStrip2.InvokeRequired)
+                {
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = true; }));
+                }
+                else
+                {
+                    toolStripMenuItem2.Enabled = true;
+                }
+            }
+            if (toolStripMenuItem3.Enabled == true)
+            {
+                if (contextMenuStrip2.InvokeRequired)
+                {
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = false; }));
+                }
+                else
+                {
+                    toolStripMenuItem3.Enabled = false;
+                }
+            }
+            else
+            {
+                if (contextMenuStrip2.InvokeRequired)
+                {
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = true; }));
+                }
+                else
+                {
+                    toolStripMenuItem3.Enabled = true;
+                }
+            }
         }
-
 
 
         //// Volume set function
