@@ -19,10 +19,19 @@ namespace LaptopAlarm
         private bool allowVisible;
         private bool allowClose;
         private bool arm_letter_entered = false;
+        private bool disarm_letter_entered = false;
         private Alarm myAlarm;
         private bool alarmArmed;
         private Form2 alarmForm = new Form2("There is no alarm. Something has gone wrong. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Thanks!");
         public CoreAudioDevice playbackDevice = new CoreAudioController().DefaultPlaybackDevice;
+
+        // arm keyboard shortcut variables
+        Keys arm_key = new Keys();
+        KeyModifiers[] arm_key_modifiers = new KeyModifiers[2];
+
+        // disarm keyboard shortcut variables
+        Keys disarm_key = new Keys();
+        KeyModifiers[] disarm_key_modifiers = new KeyModifiers[2];
 
         public Form1()
         {
@@ -40,6 +49,10 @@ namespace LaptopAlarm
 
             String[] disarmShortcut = new String[2];
             disarmShortcut = Properties.Settings.Default.DisarmShortcut.Split(Convert.ToChar(","));
+            foreach (String item in disarmShortcut)
+            {
+                textBox2.Text += " " + item + " ";
+            }
 
             // initialize checkbox settings
             checkBox1.Checked = Properties.Settings.Default.trigger_power;
@@ -62,6 +75,7 @@ namespace LaptopAlarm
         {
             // Program load:
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
+            // ARM keyboard shortcut
             String[] armShortcut = new String[2];
             armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
             Keys key = new Keys();
@@ -80,17 +94,14 @@ namespace LaptopAlarm
                 }
             }
 
-            if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && keyModifierList.Length == 2)
+            arm_key = key;
+            arm_key_modifiers = keyModifierList;
+
+            // register keyboard shortcut
+
+            if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))))
             {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control);
-            }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && keyModifierList.Length == 2)
-            {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt);
-            }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && keyModifierList.Length == 2)
-            {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Shift);
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Shift | KeyModifiers.Alt);
             }
             else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && keyModifierList.Length == 3))
             {
@@ -104,20 +115,82 @@ namespace LaptopAlarm
             {
                 HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt | KeyModifiers.Shift);
             }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && keyModifierList.Length == 3))
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && keyModifierList.Length == 2)
             {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Shift);
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control);
             }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))))
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && keyModifierList.Length == 2)
             {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Shift | KeyModifiers.Alt);
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt);
+            }
+            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && keyModifierList.Length == 2)
+            {
+                HotKeyManager.RegisterHotKey(key, KeyModifiers.Shift);
             }
             else
             {
                 MessageBox.Show("An error has occured. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Error code ARM_KBD_ELSE");
                 throw new InvalidExpressionException();
             }
-            //HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt | KeyModifiers.Control);
+
+            // register the DISARM keyboard shortcut
+            String[] disarmShortcut = new String[2];
+            disarmShortcut = Properties.Settings.Default.DisarmShortcut.Split(Convert.ToChar(","));
+            Keys disarmKey = new Keys();
+            KeyModifiers[] disarmKeyModifierList = new KeyModifiers[3];
+            int disi = 0;
+            foreach (String item in disarmShortcut)
+            {
+                if (item.Length == 1)
+                {
+                    disarmKey = (Keys)Enum.Parse(typeof(Keys), item);
+                }
+                else
+                {
+                    disarmKeyModifierList[disi] = (KeyModifiers)Enum.Parse(typeof(KeyModifiers), item);
+                    disi++;
+                }
+            }
+
+            disarm_key = disarmKey;
+            disarm_key_modifiers = disarmKeyModifierList;
+
+            // register keyboard shortcut
+
+            if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))))
+            {
+                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control | KeyModifiers.Shift | KeyModifiers.Alt);
+            }
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && disarmKeyModifierList.Length == 3))
+            {
+                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control | KeyModifiers.Shift);
+            }
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && disarmKeyModifierList.Length == 3))
+            {
+                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Alt | KeyModifiers.Shift);
+            }
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && disarmKeyModifierList.Length == 3))
+            {
+                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control | KeyModifiers.Alt);
+            }
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && disarmKeyModifierList.Length == 2)
+            {
+                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control);
+            }
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && disarmKeyModifierList.Length == 2)
+            {
+                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Alt);
+            }
+            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && disarmKeyModifierList.Length == 2)
+            {
+                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Shift);
+            }
+            else
+            {
+                MessageBox.Show("An error has occured. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Error code DISARM_KBD_ELSE");
+                throw new InvalidExpressionException();
+            }
+
             HotKeyManager.HotKeyPressed += HotKeyManager_HotKeyPressed;
 
             if (allowVisible == false)
@@ -135,10 +208,22 @@ namespace LaptopAlarm
             base.SetVisibleCore(value);
         }
 
+        // hotkey pressed
         private void HotKeyManager_HotKeyPressed(object sender, HotKeyEventArgs e)
         {
+            MessageBox.Show(e.Modifiers.ToString());
+            MessageBox.Show(e.Key.ToString());
             // arm the alarm
-            toolStripMenuItem2_Click(sender, e);
+            alarmArmed = true;
+            notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Armed", ToolTipIcon.Info);
+            backgroundWorker1.RunWorkerAsync();
+
+            if (Properties.Settings.Default.trigger_power)
+            {
+                stopBatProcess = false;
+                workerBatThread = new Thread(new ThreadStart(monitorBattery));
+                workerBatThread.Start();
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -350,6 +435,7 @@ namespace LaptopAlarm
         // Arm tool strip menu
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            // if changing this area, change it in the keyboard shortcut too
             alarmArmed = true;
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Armed", ToolTipIcon.Info);
             toolStripMenuItem2.Enabled = false;
@@ -473,6 +559,62 @@ namespace LaptopAlarm
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control == true)
+            {
+                if (!textBox2.Text.Contains("Control"))
+                {
+                    textBox2.Text += " Control ";
+                }
+            }
+            else if (e.Alt == true)
+            {
+                if (!textBox2.Text.Contains("Alt"))
+                {
+                    textBox2.Text += " Alt ";
+                }
+            }
+            else if (e.Shift == true)
+            {
+                if (!textBox2.Text.Contains("Shift"))
+                {
+                    textBox2.Text += " Shift ";
+                }
+            }
+            else if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
+            {
+                if (textBox2.Text.Contains("Control") || textBox2.Text.Contains("Alt") || textBox2.Text.Contains("Shift"))
+                {
+                    if (disarm_letter_entered == false)
+                    {
+                        textBox2.Text += "" + e.KeyCode.ToString() + "";
+                        disarm_letter_entered = true;
+                    }
+                }
+                else if (disarm_letter_entered == true)
+                {
+                    // empty on purpose
+                }
+                else
+                {
+                    toolTip1.Show("You must first press either Control, Alt, or Shift.", textBox2);
+                }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            disarm_letter_entered = false;
+            textBox2.Text = "";
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            toolStripMenuItem2.Enabled = false;
+            toolStripMenuItem3.Enabled = true;
         }
 
 
