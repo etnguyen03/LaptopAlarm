@@ -597,7 +597,7 @@ namespace LaptopAlarm
             workerVolThread.Start();
             notifyIcon2.ShowBalloonTip(1000, "ALARM", "AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
             alarmForm = new Form2("ALARM: AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
-            alarmForm.Show();
+            BeginInvoke(new Action(() => { alarmForm.Show(); }));
             workerPowerThread.Abort();
         }
 
@@ -634,6 +634,7 @@ namespace LaptopAlarm
                     if (alarmArmed && Properties.Settings.Default.trigger_battery)
                     {
                         batteryAlarm();
+                        break;
                     }
                 }
                 Thread.Sleep(1000);
@@ -649,7 +650,7 @@ namespace LaptopAlarm
             workerVolThread.Start();
             notifyIcon2.ShowBalloonTip(1000, "ALARM", "Battery removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
             alarmForm = new Form2("ALARM: Battery removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
-            alarmForm.Show();
+            BeginInvoke(new Action(() => { alarmForm.Show(); }));
             workerBatThread.Abort();
         }
 
