@@ -590,6 +590,11 @@ namespace LaptopAlarm
                         case DBT_DEVICEREMOVECOMPLETE:
                             if (alarmArmed && Properties.Settings.Default.trigger_usb)
                             {
+                                if (Properties.Settings.Default.onalarm_email)
+                                {
+                                    sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl, Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
+                                    email.sendEmail("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                                }
                                myAlarm.causeAlarm();
                                stopVolProcess = false;
                                workerVolThread = new Thread(new ThreadStart(setVolume));
@@ -606,6 +611,11 @@ namespace LaptopAlarm
 
         private void powerAlarm()
         {
+            if (Properties.Settings.Default.onalarm_email)
+            {
+                sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl, Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
+                email.sendEmail("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            }
             myAlarm.causeAlarm();
             stopVolProcess = false;
             workerVolThread = new Thread(new ThreadStart(setVolume));
@@ -659,6 +669,11 @@ namespace LaptopAlarm
 
         private void batteryAlarm()
         {
+            if (Properties.Settings.Default.onalarm_email)
+            {
+                sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl, Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
+                email.sendEmail("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            }
             myAlarm.causeAlarm();
             stopVolProcess = false;
             workerVolThread = new Thread(new ThreadStart(setVolume));
