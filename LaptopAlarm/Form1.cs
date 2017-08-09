@@ -272,17 +272,26 @@ namespace LaptopAlarm
                     alarmArmed = false;
                     myAlarm.stopAlarm();
                     stopVolProcess = true;
-                    if (workerVolThread.IsAlive == true)
+                    if (workerVolThread != null)
                     {
-                        workerVolThread.Abort();
+                        if (workerVolThread.IsAlive == true)
+                        {
+                            workerVolThread.Abort();
+                        }
                     }
-                    if (workerPowerThread.IsAlive == true)
+                    if (workerPowerThread != null)
                     {
-                        workerPowerThread.Abort();
+                        if (workerPowerThread.IsAlive == true)
+                        {
+                            workerPowerThread.Abort();
+                        }
                     }
-                    if (workerBatThread.IsAlive == true)
+                    if (workerBatThread != null)
                     {
-                        workerBatThread.Abort();
+                        if (workerBatThread.IsAlive == true)
+                        {
+                            workerBatThread.Abort();
+                        }
                     }
                     alarmForm.form2_close = true;
                     notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
@@ -542,17 +551,26 @@ namespace LaptopAlarm
             alarmArmed = false;
             myAlarm.stopAlarm();
             stopVolProcess = true;
-            if (workerVolThread.IsAlive == true)
+            if (workerVolThread != null)
             {
-                workerVolThread.Abort();
+                if (workerVolThread.IsAlive == true)
+                {
+                    workerVolThread.Abort();
+                }
             }
-            if (workerPowerThread.IsAlive == true)
+            if (workerPowerThread != null)
             {
-                workerPowerThread.Abort();
+                if (workerPowerThread.IsAlive == true)
+                {
+                    workerPowerThread.Abort();
+                }
             }
-            if (workerBatThread.IsAlive == true)
+            if (workerBatThread != null)
             {
-                workerBatThread.Abort();
+                if (workerBatThread.IsAlive == true)
+                {
+                    workerBatThread.Abort();
+                }
             }
             alarmForm.form2_close = true;
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
