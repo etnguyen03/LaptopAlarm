@@ -13,8 +13,8 @@ namespace LaptopAlarm
         private string myEmail, mySmtp, myUsername, myPassword;
         private bool mySSL;
 
-        private static const string Subject = "LaptopAlarm - Alarm Triggered";
-        private static const string messageIntro = "Message from LaptopAlarm: Alarm triggered! Details: ";
+        private const string Subject = "LaptopAlarm - Alarm Triggered";
+        private const string messageIntro = "Message from LaptopAlarm: Alarm triggered! Details: ";
 
         public sendEmail(String email, String smtp, bool ssl, String username, String password)
         {
@@ -24,7 +24,7 @@ namespace LaptopAlarm
             myUsername = username;
             myPassword = password;
         }
-        public void sendEmail(String alarmDescription = "NO DETAILS PROVIDED")
+        public void sendtheEmail(String alarmDescription = "NO DETAILS PROVIDED")
         {
             var fromAddress = new MailAddress(myEmail);
             var toAddress = new MailAddress(myEmail);
