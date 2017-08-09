@@ -133,18 +133,6 @@ namespace LaptopAlarm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool email_smtp_auth {
-            get {
-                return ((bool)(this["email_smtp_auth"]));
-            }
-            set {
-                this["email_smtp_auth"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string email_smtp_auth_username {
             get {
@@ -212,6 +200,18 @@ namespace LaptopAlarm.Properties {
             }
             set {
                 this["trigger_battery"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool email_smtp_ssl {
+            get {
+                return ((bool)(this["email_smtp_ssl"]));
+            }
+            set {
+                this["email_smtp_ssl"] = value;
             }
         }
     }

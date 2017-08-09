@@ -85,6 +85,7 @@ namespace LaptopAlarm
             }
             checkBox4.Checked = Properties.Settings.Default.onalarm_audio_volincrease;
             checkBox5.Checked = Properties.Settings.Default.trigger_battery;
+            checkBox6.Checked = Properties.Settings.Default.onalarm_email;
         }
 
         protected override void SetVisibleCore(bool value)
@@ -487,10 +488,6 @@ namespace LaptopAlarm
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
             Properties.Settings.Default.Save();
         }
-        private void checkBox6_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
@@ -830,6 +827,59 @@ namespace LaptopAlarm
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.trigger_battery = checkBox5.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkBox6_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkBox6.Checked == true)
+            {
+                groupBox6.Enabled = true;
+                Properties.Settings.Default.onalarm_email = true;
+            }
+            else
+            {
+                groupBox6.Enabled = false;
+                Properties.Settings.Default.onalarm_email = false;
+            }
+            Properties.Settings.Default.Save();
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.email_smtp_server = textBox5.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.email_to = textBox4.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        // port/auth change
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton3.Checked)
+            {
+                Properties.Settings.Default.email_smtp_ssl = false;
+            }
+            else
+            {
+                Properties.Settings.Default.email_smtp_ssl = true;
+            }
+            Properties.Settings.Default.Save();
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.email_smtp_auth_username = textBox6.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.email_smtp_auth_password = textBox7.Text;
             Properties.Settings.Default.Save();
         }
 

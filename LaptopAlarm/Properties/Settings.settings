@@ -29,9 +29,6 @@
     <Setting Name="email_smtp_server" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="email_smtp_auth" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="email_smtp_auth_username" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -48,6 +45,9 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="trigger_battery" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="email_smtp_ssl" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
