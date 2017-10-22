@@ -16,7 +16,7 @@ namespace LaptopAlarm
         private const string Subject = "LaptopAlarm - Alarm Triggered";
         private const string messageIntro = "Message from LaptopAlarm: Alarm triggered! Details: ";
 
-        public sendEmail(String email, String smtp, bool ssl, String username, String password)
+        public sendEmail(String email, String smtp, bool ssl, int port, String username, String password)
         {
             myEmail = email;
             mySmtp = smtp;

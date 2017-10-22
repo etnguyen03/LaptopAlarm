@@ -214,5 +214,17 @@ namespace LaptopAlarm.Properties {
                 this["email_smtp_ssl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
+        public int email_smtp_port {
+            get {
+                return ((int)(this["email_smtp_port"]));
+            }
+            set {
+                this["email_smtp_port"] = value;
+            }
+        }
     }
 }

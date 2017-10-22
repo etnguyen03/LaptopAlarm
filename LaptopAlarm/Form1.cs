@@ -592,7 +592,7 @@ namespace LaptopAlarm
                             {
                                 if (Properties.Settings.Default.onalarm_email)
                                 {
-                                    sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl, Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
+                                    sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl,Properties.Settings.Default.email_smtp_port,Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
                                     email.sendtheEmail("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
                                 }
                                myAlarm.causeAlarm();
@@ -613,7 +613,7 @@ namespace LaptopAlarm
         {
             if (Properties.Settings.Default.onalarm_email)
             {
-                sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl, Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
+                sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl, Properties.Settings.Default.email_smtp_port, Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
                 email.sendtheEmail("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             }
             myAlarm.causeAlarm();
@@ -671,7 +671,7 @@ namespace LaptopAlarm
         {
             if (Properties.Settings.Default.onalarm_email)
             {
-                sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl, Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
+                sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl, Properties.Settings.Default.email_smtp_port, Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
                 email.sendtheEmail("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             }
             myAlarm.causeAlarm();
@@ -872,20 +872,6 @@ namespace LaptopAlarm
             Properties.Settings.Default.Save();
         }
 
-        // port/auth change
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton3.Checked)
-            {
-                Properties.Settings.Default.email_smtp_ssl = false;
-            }
-            else
-            {
-                Properties.Settings.Default.email_smtp_ssl = true;
-            }
-            Properties.Settings.Default.Save();
-        }
-
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.email_smtp_auth_username = textBox6.Text;
@@ -895,6 +881,25 @@ namespace LaptopAlarm
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.email_smtp_auth_password = textBox7.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.email_smtp_port = (int)numericUpDown1.Value;
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox7.Checked)
+            {
+                Properties.Settings.Default.email_smtp_ssl = true;
+            }
+            else
+            {
+                Properties.Settings.Default.email_smtp_ssl = false;
+            }
             Properties.Settings.Default.Save();
         }
 
