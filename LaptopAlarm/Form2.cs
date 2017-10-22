@@ -22,6 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace LaptopAlarm
 {
@@ -32,6 +33,7 @@ namespace LaptopAlarm
         {
             InitializeComponent();
             richTextBox1.Text = alarmDescription;
+            File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\alarmstatus.txt", "AlarmTripped");
         }
 
         private void timer1_Tick(object sender, EventArgs e)
