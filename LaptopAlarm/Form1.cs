@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using AudioSwitcher.AudioApi.CoreAudio;
 using System.Diagnostics;
 using System.Threading;
+using System.IO;
 
 namespace LaptopAlarm
 {
@@ -220,6 +221,20 @@ namespace LaptopAlarm
 
             workerPowerThread = new Thread(new ThreadStart(monitorPower));
             workerVolThread = new Thread(new ThreadStart(setVolume));
+
+            // See if alarmstatus.txt exists
+            if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt"))
+            {
+                String alarmdescription = File.ReadAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt");
+                myAlarm.causeAlarm();
+                stopVolProcess = false;
+                workerVolThread = new Thread(new ThreadStart(setVolume));
+                workerVolThread.Start();
+                notifyIcon2.ShowBalloonTip(1000, "ALARM", alarmdescription + Environment.NewLine + "Realarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
+                alarmForm = new Form2(alarmdescription + Environment.NewLine + "Realarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                BeginInvoke(new Action(() => { alarmForm.Show(); }));
+                workerPowerThread.Abort();
+            }
 
             base.SetVisibleCore(value);
         }

@@ -33,7 +33,10 @@ namespace LaptopAlarm
         {
             InitializeComponent();
             richTextBox1.Text = alarmDescription;
-            File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\alarmstatus.txt", alarmDescription);
+            if (alarmDescription.StartsWith("ALARM"))
+            {
+                File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt", alarmDescription);
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
