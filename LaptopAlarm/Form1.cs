@@ -226,6 +226,8 @@ namespace LaptopAlarm
             if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt"))
             {
                 String alarmdescription = File.ReadAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt");
+                alarmArmed = true;
+                toggleToolStripMenuItems();
                 myAlarm.causeAlarm();
                 stopVolProcess = false;
                 workerVolThread = new Thread(new ThreadStart(setVolume));
@@ -282,7 +284,7 @@ namespace LaptopAlarm
             }
             else
             {
-                
+                // disarm the alarm
                 if (alarmArmed == true)
                 {
                     alarmArmed = false;
@@ -308,6 +310,10 @@ namespace LaptopAlarm
                         {
                             workerBatThread.Abort();
                         }
+                    }
+                    if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt"))
+                    {
+                        File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt");
                     }
                     alarmForm.form2_close = true;
                     notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
@@ -584,6 +590,12 @@ namespace LaptopAlarm
                     workerBatThread.Abort();
                 }
             }
+
+            if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt"))
+            {
+                File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt");
+            }
+
             alarmForm.form2_close = true;
             notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
 
