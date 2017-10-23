@@ -56,19 +56,19 @@ namespace LaptopAlarm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            String[] armShortcut = new String[2];
-            armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
-            foreach (String item in armShortcut)
-            {
-                textBox1.Text += " " + item + " ";
-            }
+            //String[] armShortcut = new String[2];
+            //armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
+            //foreach (String item in armShortcut)
+            //{
+            //    textBox1.Text += " " + item + " ";
+            //}
 
-            String[] disarmShortcut = new String[2];
-            disarmShortcut = Properties.Settings.Default.DisarmShortcut.Split(Convert.ToChar(","));
-            foreach (String item in disarmShortcut)
-            {
-                textBox2.Text += " " + item + " ";
-            }
+            //String[] disarmShortcut = new String[2];
+            //disarmShortcut = Properties.Settings.Default.DisarmShortcut.Split(Convert.ToChar(","));
+            //foreach (String item in disarmShortcut)
+            //{
+            //    textBox2.Text += " " + item + " ";
+            //}
 
             // initialize checkbox settings
             checkBox1.Checked = Properties.Settings.Default.trigger_power;
@@ -94,119 +94,10 @@ namespace LaptopAlarm
             // Program load:
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
             // ARM keyboard shortcut
-            String[] armShortcut = new String[2];
-            armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
-            Keys key = new Keys();
-            KeyModifiers[] keyModifierList = new KeyModifiers[3];
-            int i = 0;
-            foreach (String item in armShortcut)
-            {
-                if (item.Length == 1)
-                {
-                    key = (Keys)Enum.Parse(typeof(Keys), item);
-                }
-                else
-                {
-                    keyModifierList[i] = (KeyModifiers)Enum.Parse(typeof(KeyModifiers), item);
-                    i++;
-                }
-            }
-
-            arm_key = key;
-            arm_key_modifiers = keyModifierList;
-
-            // register keyboard shortcut
-            if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))))
-            {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Shift | KeyModifiers.Alt);
-            }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt"))))
-            {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Alt);
-            }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift"))))
-            {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control | KeyModifiers.Shift);
-            }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift"))))
-            {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt | KeyModifiers.Shift);
-            }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")))
-            {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Control);
-            }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))
-            {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Alt);
-            }
-            else if (keyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")))
-            {
-                HotKeyManager.RegisterHotKey(key, KeyModifiers.Shift);
-            }
-            else
-            {
-                MessageBox.Show("An error has occured. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Error code ARM_KBD_ELSE");
-                throw new InvalidExpressionException();
-            }
+            HotKeyManager.RegisterHotKey(Keys.A, KeyModifiers.Control | KeyModifiers.Alt);
 
             // register the DISARM keyboard shortcut
-            String[] disarmShortcut = new String[2];
-            disarmShortcut = Properties.Settings.Default.DisarmShortcut.Split(Convert.ToChar(","));
-            Keys disarmKey = new Keys();
-            KeyModifiers[] disarmKeyModifierList = new KeyModifiers[3];
-            int disi = 0;
-            foreach (String item in disarmShortcut)
-            {
-                if (item.Length == 1)
-                {
-                    disarmKey = (Keys)Enum.Parse(typeof(Keys), item);
-                }
-                else
-                {
-                    disarmKeyModifierList[disi] = (KeyModifiers)Enum.Parse(typeof(KeyModifiers), item);
-                    disi++;
-                }
-            }
-
-            disarm_key = disarmKey;
-            disarm_key_modifiers = disarmKeyModifierList;
-
-            // register keyboard shortcut
-
-            if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))))
-            {
-                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control | KeyModifiers.Shift | KeyModifiers.Alt);
-            }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift"))))
-            {
-                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control | KeyModifiers.Shift);
-            }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift"))))
-            {
-                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Alt | KeyModifiers.Shift);
-            }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")) && (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt"))))
-            {
-                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control | KeyModifiers.Alt);
-            }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Control")))
-            {
-                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Control);
-            }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Alt")))
-            {
-                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Alt);
-            }
-            else if (disarmKeyModifierList.Contains((KeyModifiers)Enum.Parse(typeof(KeyModifiers), "Shift")))
-            {
-                HotKeyManager.RegisterHotKey(disarmKey, KeyModifiers.Shift);
-            }
-            else
-            {
-                MessageBox.Show("An error has occured. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Error code DISARM_KBD_ELSE");
-                throw new InvalidExpressionException();
-            }
+            HotKeyManager.RegisterHotKey(Keys.D, KeyModifiers.Alt | KeyModifiers.Control);
 
             HotKeyManager.HotKeyPressed += HotKeyManager_HotKeyPressed;
 
@@ -349,71 +240,71 @@ namespace LaptopAlarm
 
         }
 
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control == true)
-            {
-                if (!textBox1.Text.Contains("Control"))
-                {
-                    textBox1.Text += " Control ";
-                }
-            }
-            else if (e.Alt == true)
-            {
-                if (!textBox1.Text.Contains("Alt"))
-                {
-                    textBox1.Text += " Alt ";
-                }
-            }
-            else if (e.Shift == true)
-            {
-                if (!textBox1.Text.Contains("Shift"))
-                {
-                    textBox1.Text += " Shift ";
-                }
-            }
-            else if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
-            {
-                if (textBox1.Text.Contains("Control") || textBox1.Text.Contains("Alt") || textBox1.Text.Contains("Shift"))
-                {
-                    if (arm_letter_entered == false)
-                    {
-                        textBox1.Text += "" + e.KeyCode.ToString() + "";
-                        arm_letter_entered = true;
-                    }
-                }
-                else if (arm_letter_entered == true)
-                {
-                    // empty on purpose
-                }
-                else
-                {
-                    toolTip1.Show("You must first press either Control, Alt, or Shift.", textBox1);
-                }
-            }
-        }
+        //private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Control == true)
+        //    {
+        //        if (!textBox1.Text.Contains("Control"))
+        //        {
+        //            textBox1.Text += " Control ";
+        //        }
+        //    }
+        //    else if (e.Alt == true)
+        //    {
+        //        if (!textBox1.Text.Contains("Alt"))
+        //        {
+        //            textBox1.Text += " Alt ";
+        //        }
+        //    }
+        //    else if (e.Shift == true)
+        //    {
+        //        if (!textBox1.Text.Contains("Shift"))
+        //        {
+        //            textBox1.Text += " Shift ";
+        //        }
+        //    }
+        //    else if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
+        //    {
+        //        if (textBox1.Text.Contains("Control") || textBox1.Text.Contains("Alt") || textBox1.Text.Contains("Shift"))
+        //        {
+        //            if (arm_letter_entered == false)
+        //            {
+        //                textBox1.Text += "" + e.KeyCode.ToString() + "";
+        //                arm_letter_entered = true;
+        //            }
+        //        }
+        //        else if (arm_letter_entered == true)
+        //        {
+        //            // empty on purpose
+        //        }
+        //        else
+        //        {
+        //            toolTip1.Show("You must first press either Control, Alt, or Shift.", textBox1);
+        //        }
+        //    }
+        //}
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            arm_letter_entered = false;
-            textBox1.Text = "";
-        }
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    arm_letter_entered = false;
+        //    textBox1.Text = "";
+        //}
 
-        private void textBox1_Leave(object sender, EventArgs e)
-        {
-            String textbox_arm = textBox1.Text.Replace("  ", " ");
-            textbox_arm = textbox_arm.Trim();
+        //private void textBox1_Leave(object sender, EventArgs e)
+        //{
+        //    String textbox_arm = textBox1.Text.Replace("  ", " ");
+        //    textbox_arm = textbox_arm.Trim();
 
-            String[] new_arm_kbd = textbox_arm.Split(Char.Parse(" "));
-            String new_arm_shortcut = "";
-            foreach (String kbd_item in new_arm_kbd)
-            {
-                new_arm_shortcut = kbd_item + ",";
-            }
-            new_arm_shortcut = new_arm_shortcut.Remove(new_arm_shortcut.Length - 1);
-            Properties.Settings.Default.ArmShortcut = new_arm_shortcut;
-            Properties.Settings.Default.Save();
-        }
+        //    String[] new_arm_kbd = textbox_arm.Split(Char.Parse(" "));
+        //    String new_arm_shortcut = "";
+        //    foreach (String kbd_item in new_arm_kbd)
+        //    {
+        //        new_arm_shortcut = kbd_item + ",";
+        //    }
+        //    new_arm_shortcut = new_arm_shortcut.Remove(new_arm_shortcut.Length - 1);
+        //    Properties.Settings.Default.ArmShortcut = new_arm_shortcut;
+        //    Properties.Settings.Default.Save();
+        //}
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
@@ -742,55 +633,55 @@ namespace LaptopAlarm
 
         }
 
-        private void textBox2_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control == true)
-            {
-                if (!textBox2.Text.Contains("Control"))
-                {
-                    textBox2.Text += " Control ";
-                }
-            }
-            else if (e.Alt == true)
-            {
-                if (!textBox2.Text.Contains("Alt"))
-                {
-                    textBox2.Text += " Alt ";
-                }
-            }
-            else if (e.Shift == true)
-            {
-                if (!textBox2.Text.Contains("Shift"))
-                {
-                    textBox2.Text += " Shift ";
-                }
-            }
-            else if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
-            {
-                if (textBox2.Text.Contains("Control") || textBox2.Text.Contains("Alt") || textBox2.Text.Contains("Shift"))
-                {
-                    if (disarm_letter_entered == false)
-                    {
-                        textBox2.Text += "" + e.KeyCode.ToString() + "";
-                        disarm_letter_entered = true;
-                    }
-                }
-                else if (disarm_letter_entered == true)
-                {
-                    // empty on purpose
-                }
-                else
-                {
-                    toolTip1.Show("You must first press either Control, Alt, or Shift.", textBox2);
-                }
-            }
-        }
+        //private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Control == true)
+        //    {
+        //        if (!textBox2.Text.Contains("Control"))
+        //        {
+        //            textBox2.Text += " Control ";
+        //        }
+        //    }
+        //    else if (e.Alt == true)
+        //    {
+        //        if (!textBox2.Text.Contains("Alt"))
+        //        {
+        //            textBox2.Text += " Alt ";
+        //        }
+        //    }
+        //    else if (e.Shift == true)
+        //    {
+        //        if (!textBox2.Text.Contains("Shift"))
+        //        {
+        //            textBox2.Text += " Shift ";
+        //        }
+        //    }
+        //    else if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
+        //    {
+        //        if (textBox2.Text.Contains("Control") || textBox2.Text.Contains("Alt") || textBox2.Text.Contains("Shift"))
+        //        {
+        //            if (disarm_letter_entered == false)
+        //            {
+        //                textBox2.Text += "" + e.KeyCode.ToString() + "";
+        //                disarm_letter_entered = true;
+        //            }
+        //        }
+        //        else if (disarm_letter_entered == true)
+        //        {
+        //            // empty on purpose
+        //        }
+        //        else
+        //        {
+        //            toolTip1.Show("You must first press either Control, Alt, or Shift.", textBox2);
+        //        }
+        //    }
+        //}
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            disarm_letter_entered = false;
-            textBox2.Text = "";
-        }
+        //private void button5_Click(object sender, EventArgs e)
+        //{
+        //    disarm_letter_entered = false;
+        //    textBox2.Text = "";
+        //}
 
         public void toggleToolStripMenuItems()
         {
