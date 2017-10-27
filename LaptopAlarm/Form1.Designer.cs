@@ -534,6 +534,7 @@ namespace LaptopAlarm
             this.checkBox8.TabIndex = 5;
             this.checkBox8.Text = "Computer restart";
             this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
             // Form1
             // 

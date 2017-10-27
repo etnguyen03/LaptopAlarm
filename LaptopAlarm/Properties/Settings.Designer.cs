@@ -226,5 +226,17 @@ namespace LaptopAlarm.Properties {
                 this["email_smtp_port"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool trigger_restart {
+            get {
+                return ((bool)(this["trigger_restart"]));
+            }
+            set {
+                this["trigger_restart"] = value;
+            }
+        }
     }
 }

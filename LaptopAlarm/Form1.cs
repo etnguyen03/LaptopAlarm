@@ -128,6 +128,53 @@ namespace LaptopAlarm
                 BeginInvoke(new Action(() => { alarmForm.Show(); }));
                 workerPowerThread.Abort();
             }
+            else
+	        {
+                // Trigger the alarm if alarmarmed.txt exists and the setting is enabled
+                if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt"))
+                {
+                    if (Properties.Settings.Default.trigger_restart == true)
+                    {
+                        String alarmdescription = "ALARM: Restart alarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+                        alarmArmed = true;
+                        toggleToolStripMenuItems();
+                        myAlarm.causeAlarm();
+                        stopVolProcess = false;
+                        workerVolThread = new Thread(new ThreadStart(setVolume));
+                        workerVolThread.Start();
+                        notifyIcon2.ShowBalloonTip(1000, "ALARM", alarmdescription, ToolTipIcon.Warning);
+                        alarmForm = new Form2(alarmdescription);
+                        BeginInvoke(new Action(() => { alarmForm.Show(); }));
+                        workerPowerThread.Abort();
+                    }
+                    else
+	                {
+                        // arm the alarm
+                        // if changing this area, change it in the keyboard shortcut too
+                        alarmArmed = true;
+                        notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Armed", ToolTipIcon.Info);
+                        toolStripMenuItem2.Enabled = false;
+                        toolStripMenuItem3.Enabled = true;
+
+                        // write to the alarmarmed.txt
+                        File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt", "armed " + DateTime.Now.ToShortDateString().ToString() + DateTime.Now.ToShortTimeString().ToString());
+
+                        if (Properties.Settings.Default.trigger_power)
+                        {
+                            StopPowerProcess = false;
+                            workerPowerThread = new Thread(new ThreadStart(monitorPower));
+                            workerPowerThread.Start();
+                        }
+                        if (Properties.Settings.Default.trigger_battery)
+                        {
+                            StopBatProcess = false;
+                            workerBatThread = new Thread(new ThreadStart(monitorBattery));
+                            workerBatThread.Start();
+                        }
+	                }
+                }
+	        }
+            
 
             base.SetVisibleCore(value);
         }
@@ -158,6 +205,9 @@ namespace LaptopAlarm
                     alarmArmed = true;
                     notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Armed", ToolTipIcon.Info);
                     toggleToolStripMenuItems();
+
+                    // write to the alarmarmed.txt
+                    File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt", "armed " + DateTime.Now.ToShortDateString().ToString() + DateTime.Now.ToShortTimeString().ToString());
 
                     if (Properties.Settings.Default.trigger_power)
                     {
@@ -205,6 +255,10 @@ namespace LaptopAlarm
                     if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt"))
                     {
                         File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt");
+                    }
+                    if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt"))
+                    {
+                        File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt");
                     }
                     alarmForm.form2_close = true;
                     notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
@@ -440,6 +494,9 @@ namespace LaptopAlarm
             toolStripMenuItem2.Enabled = false;
             toolStripMenuItem3.Enabled = true;
 
+            // write to the alarmarmed.txt
+            File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt", "armed " + DateTime.Now.ToShortDateString().ToString() + DateTime.Now.ToShortTimeString().ToString());
+
             if (Properties.Settings.Default.trigger_power)
             {
                 StopPowerProcess = false;
@@ -485,6 +542,10 @@ namespace LaptopAlarm
             if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt"))
             {
                 File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt");
+            }
+            if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt"))
+            {
+                File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt");
             }
 
             alarmForm.form2_close = true;
@@ -817,6 +878,19 @@ namespace LaptopAlarm
             else
             {
                 Properties.Settings.Default.email_smtp_ssl = false;
+            }
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox8.Checked)
+            {
+                Properties.Settings.Default.trigger_restart = true;
+            }
+            else
+            {
+                Properties.Settings.Default.trigger_restart = false;
             }
             Properties.Settings.Default.Save();
         }
