@@ -78,17 +78,15 @@ namespace LaptopAlarm
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -442,10 +440,8 @@ namespace LaptopAlarm
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.checkBox8);
             this.groupBox3.Controls.Add(this.checkBox5);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.checkBox2);
             this.groupBox3.Controls.Add(this.checkBox1);
             this.groupBox3.Location = new System.Drawing.Point(6, 6);
@@ -453,16 +449,7 @@ namespace LaptopAlarm
             this.groupBox3.Size = new System.Drawing.Size(471, 78);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Trigger";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(319, 39);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(129, 26);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Alarm will sound if laptop\'s\r\nbattery is removed";
+            this.groupBox3.Text = "Alarm Triggers";
             // 
             // checkBox5
             // 
@@ -474,24 +461,6 @@ namespace LaptopAlarm
             this.checkBox5.Text = "Battery Removal";
             this.checkBox5.UseVisualStyleBackColor = true;
             this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(170, 39);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(140, 26);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Alarm will sound if any\r\nUSB devices are unplugged";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 39);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 26);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Alarm will sound if\r\npower cord removed";
             // 
             // checkBox2
             // 
@@ -528,6 +497,16 @@ namespace LaptopAlarm
             this.tabPage3.Text = "About";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.Color.White;
+            this.richTextBox1.Location = new System.Drawing.Point(3, 11);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(401, 297);
+            this.richTextBox1.TabIndex = 3;
+            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = global::LaptopAlarm.Properties.Resources.alarm_copy;
@@ -546,15 +525,16 @@ namespace LaptopAlarm
             // 
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // richTextBox1
+            // checkBox8
             // 
-            this.richTextBox1.BackColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 11);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(401, 297);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(22, 42);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(103, 17);
+            this.checkBox8.TabIndex = 5;
+            this.checkBox8.Text = "Computer restart";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
             // Form1
             // 
@@ -607,13 +587,11 @@ namespace LaptopAlarm
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.RadioButton radioButton2;
@@ -622,7 +600,6 @@ namespace LaptopAlarm
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.GroupBox groupBox6;
@@ -638,6 +615,7 @@ namespace LaptopAlarm
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.CheckBox checkBox8;
     }
 }
 
