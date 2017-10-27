@@ -92,11 +92,11 @@ namespace LaptopAlarm
             checkBox8.Checked = Properties.Settings.Default.trigger_restart;
             if (regKey.GetValue("LaptopAlarm") == null)
             {
-                checkBox9.Checked = true;
+                checkBox9.Checked = false;
             }
             else
             {
-                checkBox9.Checked = false;
+                checkBox9.Checked = true;
             }
         }
 
