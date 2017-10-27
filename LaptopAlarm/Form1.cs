@@ -26,6 +26,7 @@ using AudioSwitcher.AudioApi.CoreAudio;
 using System.Diagnostics;
 using System.Threading;
 using System.IO;
+using Microsoft.Win32;
 
 namespace LaptopAlarm
 {
@@ -40,6 +41,7 @@ namespace LaptopAlarm
         private bool alarmArmed;
         private Form2 alarmForm = new Form2("There is no alarm. Something has gone wrong. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Thanks!");
         public CoreAudioDevice playbackDevice = new CoreAudioController().DefaultPlaybackDevice;
+        private RegistryKey regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
         // arm keyboard shortcut variables
         Keys arm_key = new Keys();
@@ -87,6 +89,14 @@ namespace LaptopAlarm
             checkBox4.Checked = Properties.Settings.Default.onalarm_audio_volincrease;
             checkBox5.Checked = Properties.Settings.Default.trigger_battery;
             checkBox6.Checked = Properties.Settings.Default.onalarm_email;
+            if (regKey.GetValue("LaptopAlarm") == null)
+            {
+                checkBox9.Checked = true;
+            }
+            else
+            {
+                checkBox9.Checked = false;
+            }
         }
 
         protected override void SetVisibleCore(bool value)
@@ -893,6 +903,18 @@ namespace LaptopAlarm
                 Properties.Settings.Default.trigger_restart = false;
             }
             Properties.Settings.Default.Save();
+        }
+
+        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox9.Checked == true)
+            {
+                regKey.SetValue("LaptopAlarm", Application.ExecutablePath);
+            }
+            else
+            {
+                regKey.DeleteValue("LaptopAlarm");
+            }
         }
 
 
