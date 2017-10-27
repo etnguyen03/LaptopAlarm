@@ -89,6 +89,7 @@ namespace LaptopAlarm
             checkBox4.Checked = Properties.Settings.Default.onalarm_audio_volincrease;
             checkBox5.Checked = Properties.Settings.Default.trigger_battery;
             checkBox6.Checked = Properties.Settings.Default.onalarm_email;
+            checkBox8.Checked = Properties.Settings.Default.trigger_restart;
             if (regKey.GetValue("LaptopAlarm") == null)
             {
                 checkBox9.Checked = true;
