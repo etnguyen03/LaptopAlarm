@@ -82,13 +82,14 @@ namespace LaptopAlarm
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -98,9 +99,9 @@ namespace LaptopAlarm
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip2
@@ -391,6 +392,7 @@ namespace LaptopAlarm
             this.button3.Size = new System.Drawing.Size(205, 23);
             this.button3.TabIndex = 5;
             this.button3.Text = "Test alarm";
+            this.toolTip2.SetToolTip(this.button3, "This button will not increase the volume, if enabled.");
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -463,6 +465,8 @@ namespace LaptopAlarm
             this.checkBox8.Size = new System.Drawing.Size(103, 17);
             this.checkBox8.TabIndex = 5;
             this.checkBox8.Text = "Computer restart";
+            this.toolTip2.SetToolTip(this.checkBox8, "Alarm will trigger if computer is restarted.\r\nFor this option to work, the progra" +
+        "m must start on\r\ncomputer start, see option on Program Settings tab.");
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
@@ -474,6 +478,7 @@ namespace LaptopAlarm
             this.checkBox5.Size = new System.Drawing.Size(104, 17);
             this.checkBox5.TabIndex = 4;
             this.checkBox5.Text = "Battery Removal";
+            this.toolTip2.SetToolTip(this.checkBox5, "Alarm will trigger if laptop\'s battery is removed");
             this.checkBox5.UseVisualStyleBackColor = true;
             this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
@@ -485,6 +490,7 @@ namespace LaptopAlarm
             this.checkBox2.Size = new System.Drawing.Size(85, 17);
             this.checkBox2.TabIndex = 1;
             this.checkBox2.Text = "USB Device";
+            this.toolTip2.SetToolTip(this.checkBox2, "Alarm will trigger if any USB device is removed");
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
@@ -498,8 +504,30 @@ namespace LaptopAlarm
             this.checkBox1.Size = new System.Drawing.Size(80, 17);
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Power cord";
+            this.toolTip2.SetToolTip(this.checkBox1, "Alarm will trigger if power cord is removed");
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.checkBox9);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(483, 311);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Program Settings";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox9
+            // 
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Location = new System.Drawing.Point(15, 16);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(195, 17);
+            this.checkBox9.TabIndex = 0;
+            this.checkBox9.Text = "Start program upon computer restart";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
             // 
             // tabPage3
             // 
@@ -540,26 +568,11 @@ namespace LaptopAlarm
             // 
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // tabPage1
+            // toolTip2
             // 
-            this.tabPage1.Controls.Add(this.checkBox9);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(483, 311);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "Program Settings";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox9
-            // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(15, 16);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(195, 17);
-            this.checkBox9.TabIndex = 0;
-            this.checkBox9.Text = "Start program upon computer restart";
-            this.checkBox9.UseVisualStyleBackColor = true;
-            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
+            this.toolTip2.IsBalloon = true;
+            this.toolTip2.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip2.ToolTipTitle = "Help";
             // 
             // Form1
             // 
@@ -584,10 +597,10 @@ namespace LaptopAlarm
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -645,6 +658,7 @@ namespace LaptopAlarm
         private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.CheckBox checkBox9;
+        private System.Windows.Forms.ToolTip toolTip2;
     }
 }
 
