@@ -44,12 +44,12 @@ namespace LaptopAlarm
         private RegistryKey regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
         // arm keyboard shortcut variables
-        Keys arm_key = new Keys();
-        KeyModifiers[] arm_key_modifiers = new KeyModifiers[2];
+        Keys arm_key = Keys.A;
+        KeyModifiers[] arm_key_modifiers = new KeyModifiers[2] { KeyModifiers.Control, KeyModifiers.Alt };
 
         // disarm keyboard shortcut variables
-        Keys disarm_key = new Keys();
-        KeyModifiers[] disarm_key_modifiers = new KeyModifiers[2];
+        Keys disarm_key = Keys.D    ;
+        KeyModifiers[] disarm_key_modifiers = new KeyModifiers[2] { KeyModifiers.Control, KeyModifiers.Alt };
 
         public Form1()
         {
