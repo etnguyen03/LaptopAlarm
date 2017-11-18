@@ -48,7 +48,7 @@ namespace LaptopAlarm
         KeyModifiers[] arm_key_modifiers = new KeyModifiers[2] { KeyModifiers.Control, KeyModifiers.Alt };
 
         // disarm keyboard shortcut variables
-        Keys disarm_key = Keys.D    ;
+        Keys disarm_key = Keys.D;
         KeyModifiers[] disarm_key_modifiers = new KeyModifiers[2] { KeyModifiers.Control, KeyModifiers.Alt };
 
         public Form1()

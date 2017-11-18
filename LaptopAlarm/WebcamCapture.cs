@@ -15,42 +15,30 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
+using Emgu.CV;
+using Emgu.Util;
+using System.Drawing;
 
 namespace LaptopAlarm
 {
-    public partial class Form2 : Form
+    class WebcamCapture
     {
-        public bool form2_close = false;
-        private WebcamCapture webcam = new WebcamCapture();
-        public Form2(String alarmDescription)
+
+        // init
+        public WebcamCapture()
         {
-            InitializeComponent();
-            richTextBox1.Text = alarmDescription;
-            if (alarmDescription.StartsWith("ALARM"))
-            {
-                File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt", alarmDescription);
-            }
+            // Nothing
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        public Bitmap getBitmap()
         {
-            if (form2_close == true)
-            {
-                this.Close();
-            }
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            pictureBox1.Image = webcam.getBitmap();
+            Capture myCapture = new Capture();
+            Bitmap image = myCapture.QueryFrame().Bitmap;
+            myCapture.Stop();
+            return image;
         }
     }
 }
