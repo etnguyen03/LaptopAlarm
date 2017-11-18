@@ -918,6 +918,23 @@ namespace LaptopAlarm
             }
         }
 
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // Trigger Alarm
+            if (Properties.Settings.Default.onalarm_email)
+            {
+                sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl, Properties.Settings.Default.email_smtp_port, Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
+                email.sendtheEmail("ALARM: Manually triggered alarm " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            }
+            myAlarm.causeAlarm();
+            stopVolProcess = false;
+            workerVolThread = new Thread(new ThreadStart(setVolume));
+            workerVolThread.Start();
+            notifyIcon2.ShowBalloonTip(1000, "ALARM", "Manually triggered alarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
+            alarmForm = new Form2("ALARM: Manually triggered alarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            BeginInvoke(new Action(() => { alarmForm.Show(); }));
+        }
+
 
         //// Volume set function
         //private void setVolume()
