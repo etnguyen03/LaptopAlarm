@@ -927,6 +927,7 @@ namespace LaptopAlarm
                 email.sendtheEmail("ALARM: Manually triggered alarm " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             }
             myAlarm.causeAlarm();
+            toggleToolStripMenuItems();
             stopVolProcess = false;
             workerVolThread = new Thread(new ThreadStart(setVolume));
             workerVolThread.Start();
