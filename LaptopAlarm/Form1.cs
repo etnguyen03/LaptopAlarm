@@ -628,7 +628,11 @@ namespace LaptopAlarm
                 {
                     if (alarmArmed && Properties.Settings.Default.trigger_power)
                     {
-                        powerAlarm();
+                        Thread.Sleep(1000);
+                        if (powerStatus.PowerLineStatus != PowerLineStatus.Online)
+                        {
+                            powerAlarm();
+                        }
                     }
                 }
                 Thread.Sleep(1000);
