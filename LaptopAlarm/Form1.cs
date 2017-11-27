@@ -42,6 +42,7 @@ namespace LaptopAlarm
         private Form2 alarmForm = new Form2("There is no alarm. Something has gone wrong. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Thanks!");
         public CoreAudioDevice playbackDevice = new CoreAudioController().DefaultPlaybackDevice;
         private RegistryKey regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+        private bool initAlarmChecked = false; // variable that stores if the restartalarm check was carried out or not
 
         // arm keyboard shortcut variables
         Keys arm_key = Keys.A;
@@ -102,6 +103,24 @@ namespace LaptopAlarm
 
         protected override void SetVisibleCore(bool value)
         {
+            if (allowVisible == false)
+            {
+                value = false;
+                if (!this.IsHandleCreated)
+                {
+                    CreateHandle();
+                }
+            }
+            if (initAlarmChecked == false)
+            {
+                programLoad();
+                initAlarmChecked = true;
+            }
+            base.SetVisibleCore(value);
+        }
+
+        private void programLoad()
+        {
             // Program load:
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
             // ARM keyboard shortcut
@@ -111,15 +130,6 @@ namespace LaptopAlarm
             HotKeyManager.RegisterHotKey(Keys.D, KeyModifiers.Alt | KeyModifiers.Control);
 
             HotKeyManager.HotKeyPressed += HotKeyManager_HotKeyPressed;
-
-            if (allowVisible == false)
-            {
-                value = false;
-                if (!this.IsHandleCreated)
-                {
-                    CreateHandle();
-                }
-            }
 
             workerPowerThread = new Thread(new ThreadStart(monitorPower));
             workerVolThread = new Thread(new ThreadStart(setVolume));
@@ -140,7 +150,7 @@ namespace LaptopAlarm
                 workerPowerThread.Abort();
             }
             else
-	        {
+            {
                 // Trigger the alarm if alarmarmed.txt exists and the setting is enabled
                 if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt"))
                 {
@@ -159,7 +169,7 @@ namespace LaptopAlarm
                         workerPowerThread.Abort();
                     }
                     else
-	                {
+                    {
                         // arm the alarm
                         // if changing this area, change it in the keyboard shortcut too
                         alarmArmed = true;
@@ -182,12 +192,9 @@ namespace LaptopAlarm
                             workerBatThread = new Thread(new ThreadStart(monitorBattery));
                             workerBatThread.Start();
                         }
-	                }
+                    }
                 }
-	        }
-            
-
-            base.SetVisibleCore(value);
+            }
         }
 
         // hotkey pressed
