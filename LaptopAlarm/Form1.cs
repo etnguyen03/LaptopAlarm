@@ -399,16 +399,12 @@ namespace LaptopAlarm
         {
             if (checkBox3.Checked == true)
             {
-                Properties.Settings.Default.onalarm_audio = true;
                 groupBox5.Enabled = true;
             }
             else
             {
-                Properties.Settings.Default.onalarm_audio = false;
                 groupBox5.Enabled = false;
             }
-            myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
-            Properties.Settings.Default.Save();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
