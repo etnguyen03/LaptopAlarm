@@ -31,6 +31,7 @@ namespace LaptopAlarm
         private const string Subject = "LaptopAlarm - Alarm Triggered";
         private const string messageIntro = "Message from LaptopAlarm: Alarm triggered! Details: ";
 
+        // Initializer
         public sendEmail(String email, String smtp, bool ssl, int port, String username, String password)
         {
             myEmail = email;
@@ -39,6 +40,8 @@ namespace LaptopAlarm
             myUsername = username;
             myPassword = password;
         }
+
+        // Send an email
         public void sendtheEmail(String alarmDescription = "NO DETAILS PROVIDED")
         {
             var fromAddress = new MailAddress(myEmail);

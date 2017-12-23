@@ -43,13 +43,14 @@ namespace LaptopAlarm
         public CoreAudioDevice playbackDevice = new CoreAudioController().DefaultPlaybackDevice;
         private RegistryKey regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
         private bool initAlarmChecked = false; // variable that stores if the restartalarm check was carried out or not
+        private bool initCheckChange = false; // whether or not the settings have been initialized
 
         // arm keyboard shortcut variables
         Keys arm_key = Keys.A;
         KeyModifiers[] arm_key_modifiers = new KeyModifiers[2] { KeyModifiers.Control, KeyModifiers.Alt };
 
         // disarm keyboard shortcut variables
-        Keys disarm_key = Keys.D    ;
+        Keys disarm_key = Keys.D;
         KeyModifiers[] disarm_key_modifiers = new KeyModifiers[2] { KeyModifiers.Control, KeyModifiers.Alt };
 
         public Form1()
@@ -99,6 +100,7 @@ namespace LaptopAlarm
             {
                 checkBox9.Checked = true;
             }
+            initCheckChange = true;
         }
 
         protected override void SetVisibleCore(bool value)
@@ -113,13 +115,14 @@ namespace LaptopAlarm
             }
             if (initAlarmChecked == false)
             {
-                programLoad();
+                ProgramLoad();
                 initAlarmChecked = true;
             }
             base.SetVisibleCore(value);
         }
 
-        private void programLoad()
+        // Program load function
+        private void ProgramLoad()
         {
             // Program load:
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
@@ -909,6 +912,15 @@ namespace LaptopAlarm
             if (checkBox8.Checked)
             {
                 Properties.Settings.Default.trigger_restart = true;
+
+                // Check to see if the "start on restart" option is enabled; if not prompt
+                if (checkBox9.Checked == false && initCheckChange)
+                {
+                    if (MessageBox.Show("You've enabled the alarm on restart option; however LaptopAlarm is not configured to start on bootup, and must be for this option to function. Do you want to start LaptopAlarm on bootup?", "LaptopAlarm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        checkBox9.Checked = true;
+                    }
+                }
             }
             else
             {
