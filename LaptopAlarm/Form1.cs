@@ -78,6 +78,7 @@ namespace LaptopAlarm
             checkBox1.Checked = Properties.Settings.Default.trigger_power;
             checkBox2.Checked = Properties.Settings.Default.trigger_usb;
             checkBox3.Checked = Properties.Settings.Default.onalarm_audio;
+            groupBox5.Enabled = Properties.Settings.Default.onalarm_audio;
             if (Properties.Settings.Default.onalarm_audio_default == onalarm_audio_settings.defaultSound)
             {
                 radioButton1.Checked = true;
@@ -91,6 +92,7 @@ namespace LaptopAlarm
             checkBox4.Checked = Properties.Settings.Default.onalarm_audio_volincrease;
             checkBox5.Checked = Properties.Settings.Default.trigger_battery;
             checkBox6.Checked = Properties.Settings.Default.onalarm_email;
+            groupBox6.Enabled = Properties.Settings.Default.onalarm_email;
             checkBox8.Checked = Properties.Settings.Default.trigger_restart;
             if (regKey.GetValue("LaptopAlarm") == null)
             {
