@@ -27,6 +27,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using Microsoft.Win32;
+using System.Security.Principal;
 
 namespace LaptopAlarm
 {
@@ -102,6 +103,16 @@ namespace LaptopAlarm
                 checkBox9.Checked = true;
             }
             initCheckChange = true;
+
+            // Add UAC shield to checkbox
+            // Credits: Serenus, Matthew Ferreira, Mo Patel on Stack Overflow
+            if (!IsAdministrator())
+            {
+                Bitmap shield = SystemIcons.Shield.ToBitmap();
+                shield.MakeTransparent();
+
+                pictureBox2.BackgroundImage = shield;
+            }            
         }
 
         protected override void SetVisibleCore(bool value)
@@ -995,6 +1006,24 @@ namespace LaptopAlarm
                 richTextBox2.Text = File.ReadAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmlogs.txt");
                 logFileStream = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmlogs.txt");
             }
+        }
+
+        /// <summary>
+        /// Checks whether or not the process is running as an administrator
+        /// </summary>
+        /// <returns>Boolean: True if running as administrator, false otherwise</returns>
+        // Credit: Matthew Ferreira, Mo Patel
+        public static bool IsAdministrator()
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+
+            if (identity != null)
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                return principal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
+
+            return false;
         }
     }
 }
