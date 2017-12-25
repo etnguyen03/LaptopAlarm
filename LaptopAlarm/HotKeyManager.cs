@@ -30,6 +30,12 @@ namespace LaptopAlarm
     {
         public static event EventHandler<HotKeyEventArgs> HotKeyPressed;
 
+        /// <summary>
+        /// Register a hot key.
+        /// </summary>
+        /// <param name="key">Key to bind.</param>
+        /// <param name="modifiers">Keymodifiers to bind.</param>
+        /// <returns>ID of hotkey</returns>
         public static int RegisterHotKey(Keys key, KeyModifiers modifiers)
         {
             _windowReadyEvent.WaitOne();
@@ -38,6 +44,10 @@ namespace LaptopAlarm
             return id;
         }
 
+        /// <summary>
+        /// Unregisters a hot key.
+        /// </summary>
+        /// <param name="id">ID returned upon calling RegisterHotKey.</param>
         public static void UnregisterHotKey(int id)
         {
             _wnd.Invoke(new UnRegisterHotKeyDelegate(UnRegisterHotKeyInternal), _hwnd, id);

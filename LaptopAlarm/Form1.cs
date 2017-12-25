@@ -122,7 +122,9 @@ namespace LaptopAlarm
             base.SetVisibleCore(value);
         }
 
-        // Program load function
+        /// <summary>
+        /// Program load function
+        /// </summary>
         private void ProgramLoad()
         {
             // Program load:

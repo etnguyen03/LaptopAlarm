@@ -24,7 +24,13 @@ public class Alarm
     private System.Media.SoundPlayer player;
     private bool isAlarmPlaying = false;
 
-
+    /// <summary>
+    /// Constructor for Alarm class.
+    /// </summary>
+    /// <param name="playAudio">Whether or not to play audio on alarm.</param>
+    /// <param name="soundType">"onalarm_audio_settings" value if audio is default or custom.</param>
+    /// <param name="audioLocation">If custom, path to a .wav file to use. If default, this parameter has no effect.</param>
+    /// <param name="increaseVolume">Whether or not to increase volume on alarm.</param>
 	public Alarm(bool playAudio, LaptopAlarm.onalarm_audio_settings soundType, string audioLocation, bool increaseVolume)
 	{
         myplayAudio = playAudio;
@@ -33,6 +39,9 @@ public class Alarm
         myincreaseVolume = increaseVolume;
 	}
 
+    /// <summary>
+    /// Trip the alarm.
+    /// </summary>
     public void causeAlarm()
     {
         if (myplayAudio)
@@ -50,6 +59,9 @@ public class Alarm
         }
     }
 
+    /// <summary>
+    /// Stop the alarm.
+    /// </summary>
     public void stopAlarm()
     {
         if (isAlarmPlaying)
