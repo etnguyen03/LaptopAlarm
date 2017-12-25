@@ -199,6 +199,9 @@ namespace LaptopAlarm
                     }
                 }
             }
+
+            // Apply the "show-trigger-alarm" setting
+            toolStripMenuItem1.Visible = Properties.Settings.Default.show_trigger_alarm;
         }
 
         // hotkey pressed
