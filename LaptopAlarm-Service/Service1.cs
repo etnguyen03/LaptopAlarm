@@ -19,6 +19,7 @@ namespace LaptopAlarm_Service
 
         protected override void OnStart(string[] args)
         {
+            System.Diagnostics.Process.Start("LaptopAlarm.exe");
         }
 
         protected override void OnStop()
