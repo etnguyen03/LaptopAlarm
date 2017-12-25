@@ -41,9 +41,10 @@ namespace LaptopAlarm
         private bool alarmArmed;
         private Form2 alarmForm = new Form2("There is no alarm. Something has gone wrong. Please file a bug report at https://github.com/etnguyen03/LaptopAlarm/issues. Thanks!");
         public CoreAudioDevice playbackDevice = new CoreAudioController().DefaultPlaybackDevice;
-        private RegistryKey regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+        private RegistryKey regKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", false);
         private bool initAlarmChecked = false; // variable that stores if the restartalarm check was carried out or not
         private bool initCheckChange = false; // whether or not the settings have been initialized
+        private StreamWriter logFileStream;
 
         // arm keyboard shortcut variables
         Keys arm_key = Keys.A;
@@ -137,6 +138,17 @@ namespace LaptopAlarm
             workerPowerThread = new Thread(new ThreadStart(monitorPower));
             workerVolThread = new Thread(new ThreadStart(setVolume));
 
+            // Initialize the logfile if not present
+            if (!File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmlogs.txt"))
+            {
+                logFileStream = File.CreateText(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmlogs.txt");
+            }
+            else
+            {
+                logFileStream = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmlogs.txt");
+            }
+            logFileStream.AutoFlush = true;
+
             // See if alarmstatus.txt exists
             if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt"))
             {
@@ -170,6 +182,8 @@ namespace LaptopAlarm
                         alarmForm = new Form2(alarmdescription);
                         BeginInvoke(new Action(() => { alarmForm.Show(); }));
                         workerPowerThread.Abort();
+                        logFileStream.WriteLine(alarmdescription);
+                        logFileStream.Flush();
                     }
                     else
                     {
@@ -606,6 +620,8 @@ namespace LaptopAlarm
                                notifyIcon2.ShowBalloonTip(1000, "ALARM", "USB Device Removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
                                alarmForm = new Form2("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
                                alarmForm.Show();
+                               logFileStream.WriteLine("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                               logFileStream.Flush();
                             }
                             break;
                     }
@@ -628,6 +644,8 @@ namespace LaptopAlarm
             alarmForm = new Form2("ALARM: AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             BeginInvoke(new Action(() => { alarmForm.Show(); }));
             workerPowerThread.Abort();
+            logFileStream.WriteLine("ALARM: AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            logFileStream.Flush();
         }
 
         // power detector
@@ -680,7 +698,7 @@ namespace LaptopAlarm
             if (Properties.Settings.Default.onalarm_email)
             {
                 sendEmail email = new sendEmail(Properties.Settings.Default.email_to, Properties.Settings.Default.email_smtp_server, Properties.Settings.Default.email_smtp_ssl, Properties.Settings.Default.email_smtp_port, Properties.Settings.Default.email_smtp_auth_username, Properties.Settings.Default.email_smtp_auth_password);
-                email.sendtheEmail("ALARM: USB Device removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                email.sendtheEmail("ALARM: Battery removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             }
             myAlarm.causeAlarm();
             stopVolProcess = false;
@@ -690,6 +708,8 @@ namespace LaptopAlarm
             alarmForm = new Form2("ALARM: Battery removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             BeginInvoke(new Action(() => { alarmForm.Show(); }));
             workerBatThread.Abort();
+            logFileStream.WriteLine("ALARM: Battery removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            logFileStream.Flush();
         }
 
         // volume controls
@@ -962,51 +982,19 @@ namespace LaptopAlarm
             notifyIcon2.ShowBalloonTip(1000, "ALARM", "Manually triggered alarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
             alarmForm = new Form2("ALARM: Manually triggered alarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             BeginInvoke(new Action(() => { alarmForm.Show(); }));
+            logFileStream.WriteLine("ALARM: Manually triggered alarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            logFileStream.Flush();
         }
 
-
-        //// Volume set function
-        //private void setVolume()
-        //{
-        //    if (playbackDevice.Volume != 20)
-        //    {
-        //        playbackDevice.Volume = 20;
-        //    }
-        //    if (playbackDevice.IsMuted)
-        //    {
-        //        playbackDevice.ToggleMute();
-        //    }
-        //    //playbackDevice.VolumeChanged += new EventHandler<AudioSwitcher.AudioApi.DeviceVolumeChangedArgs>(new VolumeChanged());
-        //    playbackDevice.VolumeChanged.Subscribe(new VolumeChanged());
-            
-        //}
-
-        //public class VolumeChanged : IObserver<AudioSwitcher.AudioApi.CoreAudio.CoreAudioDevice>
-        //{
-        //    private IDisposable unsubscriber;
-        //    private bool first = true;
-        //    private CoreAudioDevice last;
-
-        //    public virtual void Subscribe(IObservable<CoreAudioDevice> provider)
-        //    {
-        //        unsubscriber = provider.Subscribe(this);
-        //    }
-        //    public virtual void Unsubscribe()
-        //    {
-        //        unsubscriber.Dispose();
-        //    }
-        //    public virtual void OnCompleted()
-        //    {
-
-        //    }
-        //    public virtual void OnError(Exception e)
-        //    {
-
-        //    }
-        //    public virtual void OnNext(CoreAudioDevice c)
-        //    {
-
-        //    }
-        //}
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Check to see if the "alarm logs" tab is selected
+            if (tabControl1.SelectedTab == tabPage4)
+            {
+                logFileStream.Close();
+                richTextBox2.Text = File.ReadAllText(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmlogs.txt");
+                logFileStream = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmlogs.txt");
+            }
+        }
     }
 }
