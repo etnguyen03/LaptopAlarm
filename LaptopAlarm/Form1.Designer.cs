@@ -48,6 +48,7 @@ namespace LaptopAlarm
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,7 +91,6 @@ namespace LaptopAlarm
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -133,6 +133,13 @@ namespace LaptopAlarm
             this.toolStripMenuItem3.Size = new System.Drawing.Size(188, 22);
             this.toolStripMenuItem3.Text = "Disarm";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
+            this.toolStripMenuItem1.Text = "Trigger Alarm";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripSeparator2
             // 
@@ -575,14 +582,6 @@ namespace LaptopAlarm
             this.toolTip2.IsBalloon = true;
             this.toolTip2.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip2.ToolTipTitle = "Help";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
-            this.toolStripMenuItem1.Text = "Trigger Alarm";
-            this.toolStripMenuItem1.ToolTipText = "Double-click to trigger";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // Form1
             // 
