@@ -91,6 +91,7 @@ namespace LaptopAlarm
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -115,7 +116,7 @@ namespace LaptopAlarm
             this.toolStripMenuItem4,
             this.exitToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(189, 142);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(189, 120);
             // 
             // toolStripMenuItem2
             // 
@@ -519,6 +520,7 @@ namespace LaptopAlarm
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox10);
             this.tabPage1.Controls.Add(this.checkBox9);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -582,6 +584,17 @@ namespace LaptopAlarm
             this.toolTip2.IsBalloon = true;
             this.toolTip2.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip2.ToolTipTitle = "Help";
+            // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Location = new System.Drawing.Point(15, 39);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(208, 17);
+            this.checkBox10.TabIndex = 1;
+            this.checkBox10.Text = "Show \"Trigger Alarm\" in Context Menu";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
             // 
             // Form1
             // 
@@ -669,6 +682,7 @@ namespace LaptopAlarm
         private System.Windows.Forms.CheckBox checkBox9;
         private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.CheckBox checkBox10;
     }
 }
 

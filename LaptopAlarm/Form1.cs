@@ -101,6 +101,7 @@ namespace LaptopAlarm
                 checkBox9.Checked = true;
             }
             initCheckChange = true;
+            checkBox10.Checked = Properties.Settings.Default.show_trigger_alarm;
         }
 
         protected override void SetVisibleCore(bool value)
@@ -964,6 +965,21 @@ namespace LaptopAlarm
             BeginInvoke(new Action(() => { alarmForm.Show(); }));
         }
 
+        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox10.Checked)
+            {
+                Properties.Settings.Default.show_trigger_alarm = true;
+                toolStripMenuItem1.Visible = true;
+            }
+            else
+            {
+                Properties.Settings.Default.show_trigger_alarm = false;
+                toolStripMenuItem1.Visible = false;
+            }
+            Properties.Settings.Default.Save();
+        }
+
 
         //// Volume set function
         //private void setVolume()
@@ -978,7 +994,7 @@ namespace LaptopAlarm
         //    }
         //    //playbackDevice.VolumeChanged += new EventHandler<AudioSwitcher.AudioApi.DeviceVolumeChangedArgs>(new VolumeChanged());
         //    playbackDevice.VolumeChanged.Subscribe(new VolumeChanged());
-            
+
         //}
 
         //public class VolumeChanged : IObserver<AudioSwitcher.AudioApi.CoreAudio.CoreAudioDevice>
