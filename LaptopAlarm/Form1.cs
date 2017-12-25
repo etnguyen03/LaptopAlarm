@@ -970,10 +970,12 @@ namespace LaptopAlarm
             if (checkBox10.Checked)
             {
                 Properties.Settings.Default.show_trigger_alarm = true;
+                toolStripMenuItem1.Visible = true;
             }
             else
             {
                 Properties.Settings.Default.show_trigger_alarm = false;
+                toolStripMenuItem1.Visible = false;
             }
             Properties.Settings.Default.Save();
         }
