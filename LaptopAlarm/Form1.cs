@@ -46,6 +46,7 @@ namespace LaptopAlarm
         private bool initAlarmChecked = false; // variable that stores if the restartalarm check was carried out or not
         private bool initCheckChange = false; // whether or not the settings have been initialized
         private StreamWriter logFileStream;
+        private bool regKeyReset = false; // whether or not the regkey checkbox is being reverted
 
         // arm keyboard shortcut variables
         Keys arm_key = Keys.A;
@@ -966,13 +967,38 @@ namespace LaptopAlarm
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox9.Checked == true)
+            // Credit: Matthew Ferreira & Mo Patel
+            if (initCheckChange == true && regKeyReset == false)
             {
-                regKey.SetValue("LaptopAlarm", Application.ExecutablePath);
+                ProcessStartInfo info = new ProcessStartInfo();
+                info.FileName = "RegKeySetter.exe";
+                info.UseShellExecute = true;
+                info.Verb = "runas";
+                info.Arguments = "7FS0SDE4QM2NOQKYSKPCD5LUCRGK6ZV4 9F78IPHB517W4AJ1H3VKEY3AOJ9M8CWG C8JU5GAQZOVGX02HD6LC85T4TS0H8JRH";
+
+                if (checkBox9.Checked == true)
+                {
+                    info.Arguments = info.Arguments + " 1 \"" + Application.ExecutablePath + "\"";
+                }
+                else
+                {
+                    info.Arguments = info.Arguments + " 0";
+                }
+
+                try
+                {
+                    Process.Start(info);
+                }
+                catch (Win32Exception)
+                {
+                    regKeyReset = true;
+                    checkBox9.Checked = !checkBox9.Checked;
+                    MessageBox.Show("LaptopAlarm is currently not configured to startup on boot because the UAC prompt was not accepted.", "LaptopAlarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            else
+            else if (regKeyReset == true)
             {
-                regKey.DeleteValue("LaptopAlarm");
+                regKeyReset = false;
             }
         }
 
