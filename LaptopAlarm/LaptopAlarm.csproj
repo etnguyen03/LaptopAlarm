@@ -42,6 +42,9 @@
     <Reference Include="AudioSwitcher.AudioApi.CoreAudio">
       <HintPath>C:\Users\etngu\Desktop\LaptopAlarm\AudioSwitcher.AudioApi.CoreAudio.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Win32.TaskScheduler, Version=2.7.2.0, Culture=neutral, PublicKeyToken=c416bc1b32d97233, processorArchitecture=MSIL">
+      <HintPath>..\packages\TaskScheduler.2.7.2\lib\net40\Microsoft.Win32.TaskScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
