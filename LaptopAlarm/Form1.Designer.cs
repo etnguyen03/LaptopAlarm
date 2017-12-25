@@ -140,7 +140,6 @@ namespace LaptopAlarm
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
             this.toolStripMenuItem1.Text = "Trigger Alarm";
-            this.toolStripMenuItem1.ToolTipText = "Double-click to trigger";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripSeparator2
