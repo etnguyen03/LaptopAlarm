@@ -28,6 +28,7 @@ using System.Threading;
 using System.IO;
 using Microsoft.Win32;
 using Microsoft.Win32.TaskScheduler;
+using System.Security.Principal;
 
 namespace LaptopAlarm
 {
@@ -96,13 +97,13 @@ namespace LaptopAlarm
             checkBox6.Checked = Properties.Settings.Default.onalarm_email;
             groupBox6.Enabled = Properties.Settings.Default.onalarm_email;
             checkBox8.Checked = Properties.Settings.Default.trigger_restart;
-            if (regKey.GetValue("LaptopAlarm") == null)
+            try
+            {
+                checkBox9.Checked = TaskService.Instance.GetTask("LaptopAlarm").Enabled;
+            }
+            catch (Exception)
             {
                 checkBox9.Checked = false;
-            }
-            else
-            {
-                checkBox9.Checked = true;
             }
             initCheckChange = true;
             checkBox10.Checked = Properties.Settings.Default.show_trigger_alarm;
@@ -135,6 +136,27 @@ namespace LaptopAlarm
         private void ProgramLoad()
         {
             // Program load:
+
+            // Check arguments
+            if (Environment.GetCommandLineArgs().Length > 1)
+            {
+                notifyIcon2.Visible = false;
+                if (Environment.GetCommandLineArgs()[1] == "registerService")
+                {
+                    Environment.Exit(registerService());
+                }
+                else if (Environment.GetCommandLineArgs()[1] == "enableService")
+                {
+                    TaskService.Instance.GetTask("LaptopAlarm").Enabled = true;
+                    Environment.Exit(0);
+                }
+                else if (Environment.GetCommandLineArgs()[1] == "disableService")
+                {
+                    TaskService.Instance.GetTask("LaptopAlarm").Enabled = false;
+                    Environment.Exit(0);
+                }
+            }
+
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
             // ARM keyboard shortcut
             HotKeyManager.RegisterHotKey(Keys.A, KeyModifiers.Control | KeyModifiers.Alt);
@@ -948,46 +970,43 @@ namespace LaptopAlarm
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
         {
-            if (changingCheckbox9 == false)
+            if (changingCheckbox9 == false && initCheckChange == true)
             {
                 if (TaskService.Instance.GetTask("LaptopAlarm") == null)
                 {
-                    TaskService ts = new TaskService();
-                    TaskDefinition definition = ts.NewTask();
-                    definition.RegistrationInfo.Description = "Launches LaptopAlarm on startup";
-                    definition.RegistrationInfo.Author = "LaptopAlarm";
-                    definition.RegistrationInfo.Date = DateTime.Now;
-                    definition.Principal.LogonType = TaskLogonType.Password;
-                    BootTrigger bootTrigger = new BootTrigger();
-                    definition.Triggers.Add(bootTrigger);
-                    ExecAction action = new ExecAction(Application.ExecutablePath);
-                    definition.Actions.Add(action);
-                    definition.Settings.DisallowStartIfOnBatteries = false;
-                    definition.Settings.RunOnlyIfIdle = false;
-                    definition.Settings.RunOnlyIfNetworkAvailable = false;
-                    definition.Settings.StopIfGoingOnBatteries = false;
-                    definition.Settings.IdleSettings.StopOnIdleEnd = false;
-
-                    String username, password;
-                    if (definition.Principal.RequiresPassword())
+                    ProcessStartInfo startInfo = new ProcessStartInfo(Application.ExecutablePath, "registerService");
+                    startInfo.Verb = "runas";
+                    Process registerProcess = Process.Start(startInfo);
+                    registerProcess.WaitForExit();
+                    int exitCode = registerProcess.ExitCode;
+                    if (exitCode == 1)
                     {
-                        passwordBox dialogBox = new passwordBox();
-                        if (dialogBox.ShowDialog() == DialogResult.OK)
-                        {
-                            username = dialogBox.getUsername();
-                            password = dialogBox.getPassword();
-                            ts.RootFolder.RegisterTaskDefinition("LaptopAlarm", definition, TaskCreation.Create, username, password, TaskLogonType.Password);
-                        }
-                        else
-                        {
-                            changingCheckbox9 = true;
-                            checkBox9.Checked = false;
-                        }
+                        MessageBox.Show("You entered an incorrect password.", "LaptopAlarm", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        changingCheckbox9 = true;
+                        checkBox9.Checked = false;
+                    }
+                    else if (exitCode == 2)
+                    {
+                        changingCheckbox9 = true;
+                        checkBox9.Checked = false;
                     }
                 }
                 else
                 {
-
+                    if (checkBox9.Checked)
+                    {
+                        ProcessStartInfo startInfo = new ProcessStartInfo(Application.ExecutablePath, "enableService");
+                        startInfo.Verb = "runas";
+                        Process registerProcess = Process.Start(startInfo);
+                        registerProcess.WaitForExit();
+                    }
+                    else
+                    {
+                        ProcessStartInfo startInfo = new ProcessStartInfo(Application.ExecutablePath, "disableService");
+                        startInfo.Verb = "runas";
+                        Process registerProcess = Process.Start(startInfo);
+                        registerProcess.WaitForExit();
+                    }
                 }
             }
             else
@@ -1028,6 +1047,55 @@ namespace LaptopAlarm
                 toolStripMenuItem1.Visible = false;
             }
             Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// Register the LaptopAlarm service. Elevated privileges req'd
+        /// </summary>
+        /// <returns>Exit codes: 0 - OK, 1 - Incorrect password; 2 - User cancelled</returns>
+        private int registerService()
+        {
+            TaskService ts = new TaskService();
+            TaskDefinition definition = ts.NewTask();
+            definition.RegistrationInfo.Description = "Launches LaptopAlarm on startup";
+            definition.RegistrationInfo.Author = "LaptopAlarm";
+            definition.RegistrationInfo.Date = DateTime.Now;
+            definition.Principal.LogonType = TaskLogonType.Password;
+            BootTrigger bootTrigger = new BootTrigger();
+            definition.Triggers.Add(bootTrigger);
+            ExecAction action = new ExecAction(Application.ExecutablePath);
+            definition.Actions.Add(action);
+            definition.Settings.DisallowStartIfOnBatteries = false;
+            definition.Settings.RunOnlyIfIdle = false;
+            definition.Settings.RunOnlyIfNetworkAvailable = false;
+            definition.Settings.StopIfGoingOnBatteries = false;
+            definition.Settings.IdleSettings.StopOnIdleEnd = false;
+
+            String username, password;
+            if (definition.Principal.RequiresPassword())
+            {
+                passwordBox dialogBox = new passwordBox();
+                if (dialogBox.ShowDialog() == DialogResult.OK)
+                {
+                    username = dialogBox.getUsername();
+                    password = dialogBox.getPassword();
+                    try
+                    {
+                        ts.RootFolder.RegisterTaskDefinition("LaptopAlarm", definition, TaskCreation.Create, username, password, TaskLogonType.Password);
+                        return 0;
+                    }
+                    catch (Exception)
+                    {
+                        return 1;
+                        throw;
+                    }
+                }
+                else
+                {
+                    return 2;
+                }
+            }
+            return 2;
         }
 
 
