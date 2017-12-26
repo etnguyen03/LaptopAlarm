@@ -27,6 +27,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using Microsoft.Win32;
+using Microsoft.Win32.TaskScheduler;
 
 namespace LaptopAlarm
 {
@@ -154,7 +155,7 @@ namespace LaptopAlarm
                 workerVolThread.Start();
                 notifyIcon2.ShowBalloonTip(1000, "ALARM", alarmdescription + Environment.NewLine + "Realarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
                 alarmForm = new Form2(alarmdescription + Environment.NewLine + "Realarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
-                BeginInvoke(new Action(() => { alarmForm.Show(); }));
+                BeginInvoke(new System.Action(() => { alarmForm.Show(); }));
                 workerPowerThread.Abort();
             }
             else
@@ -173,7 +174,7 @@ namespace LaptopAlarm
                         workerVolThread.Start();
                         notifyIcon2.ShowBalloonTip(1000, "ALARM", alarmdescription, ToolTipIcon.Warning);
                         alarmForm = new Form2(alarmdescription);
-                        BeginInvoke(new Action(() => { alarmForm.Show(); }));
+                        BeginInvoke(new System.Action(() => { alarmForm.Show(); }));
                         workerPowerThread.Abort();
                     }
                     else
@@ -634,7 +635,7 @@ namespace LaptopAlarm
             workerVolThread.Start();
             notifyIcon2.ShowBalloonTip(1000, "ALARM", "AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
             alarmForm = new Form2("ALARM: AC adapter unplugged at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
-            BeginInvoke(new Action(() => { alarmForm.Show(); }));
+            BeginInvoke(new System.Action(() => { alarmForm.Show(); }));
             workerPowerThread.Abort();
         }
 
@@ -696,7 +697,7 @@ namespace LaptopAlarm
             workerVolThread.Start();
             notifyIcon2.ShowBalloonTip(1000, "ALARM", "Battery removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
             alarmForm = new Form2("ALARM: Battery removed at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
-            BeginInvoke(new Action(() => { alarmForm.Show(); }));
+            BeginInvoke(new System.Action(() => { alarmForm.Show(); }));
             workerBatThread.Abort();
         }
 
@@ -943,13 +944,28 @@ namespace LaptopAlarm
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox9.Checked == true)
+            if (TaskService.Instance.GetTask("LaptopAlarm") == null)
             {
-                regKey.SetValue("LaptopAlarm", Application.ExecutablePath);
-            }
-            else
-            {
-                regKey.DeleteValue("LaptopAlarm");
+                TaskService ts = new TaskService();
+                TaskDefinition definition = ts.NewTask();
+                definition.RegistrationInfo.Description = "Launches LaptopAlarm on startup";
+                definition.RegistrationInfo.Author = "LaptopAlarm";
+                definition.RegistrationInfo.Date = DateTime.Now;
+                definition.Principal.LogonType = TaskLogonType.Password;
+                BootTrigger bootTrigger = new BootTrigger();
+                definition.Triggers.Add(bootTrigger);
+                ExecAction action = new ExecAction(Application.ExecutablePath);
+                definition.Actions.Add(action);
+                definition.Settings.DisallowStartIfOnBatteries = false;
+                definition.Settings.RunOnlyIfIdle = false;
+                definition.Settings.RunOnlyIfNetworkAvailable = false;
+                definition.Settings.RunOnlyIfLoggedOn = false;
+                definition.Settings.StopIfGoingOnBatteries = false;
+
+                //String username = "";
+                //String password = "";
+
+                ts.RootFolder.RegisterTaskDefinition("LaptopAlarm", definition, TaskCreation.Create, username, password, TaskLogonType.Password);
             }
         }
 
@@ -969,7 +985,7 @@ namespace LaptopAlarm
             workerVolThread.Start();
             notifyIcon2.ShowBalloonTip(1000, "ALARM", "Manually triggered alarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(), ToolTipIcon.Warning);
             alarmForm = new Form2("ALARM: Manually triggered alarm at " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
-            BeginInvoke(new Action(() => { alarmForm.Show(); }));
+            BeginInvoke(new System.Action(() => { alarmForm.Show(); }));
         }
 
         private void checkBox10_CheckedChanged(object sender, EventArgs e)
