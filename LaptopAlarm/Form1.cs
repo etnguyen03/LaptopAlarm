@@ -1063,7 +1063,7 @@ namespace LaptopAlarm
             definition.Principal.LogonType = TaskLogonType.Password;
             BootTrigger bootTrigger = new BootTrigger();
             definition.Triggers.Add(bootTrigger);
-            ExecAction action = new ExecAction(Application.ExecutablePath);
+            ExecAction action = new ExecAction("\"" + Application.ExecutablePath + "\"");
             definition.Actions.Add(action);
             definition.Settings.DisallowStartIfOnBatteries = false;
             definition.Settings.RunOnlyIfIdle = false;
