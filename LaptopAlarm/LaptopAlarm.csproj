@@ -73,6 +73,12 @@
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="HotKeyManager.cs" />
+    <Compile Include="passwordBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="passwordBox.Designer.cs">
+      <DependentUpon>passwordBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sendEmail.cs" />
@@ -81,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="passwordBox.resx">
+      <DependentUpon>passwordBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -116,6 +125,10 @@
     <Content Include="alarm copy.ico" />
     <Content Include="AudioSwitcher.AudioApi.CoreAudio.dll" />
     <Content Include="AudioSwitcher.AudioApi.dll" />
+    <None Include="Resources\padlock-147913_1280.png" />
+    <None Include="Resources\LoginScreen_16x.png" />
+    <None Include="Resources\LoginScreen_16x_32.bmp" />
+    <None Include="Resources\LoginIcon.bmp" />
     <None Include="Resources\Burglar Intruder Alarm Sound Effect.wav" />
     <None Include="Resources\Burglar Intruder Alarm Sound Effect.mp3" />
   </ItemGroup>

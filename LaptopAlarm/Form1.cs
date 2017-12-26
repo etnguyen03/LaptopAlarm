@@ -45,6 +45,7 @@ namespace LaptopAlarm
         private RegistryKey regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
         private bool initAlarmChecked = false; // variable that stores if the restartalarm check was carried out or not
         private bool initCheckChange = false; // whether or not the settings have been initialized
+        private bool changingCheckbox9 = false;
 
         // arm keyboard shortcut variables
         Keys arm_key = Keys.A;
@@ -105,6 +106,9 @@ namespace LaptopAlarm
             }
             initCheckChange = true;
             checkBox10.Checked = Properties.Settings.Default.show_trigger_alarm;
+
+            // UAC icon
+            pictureBox2.BackgroundImage = SystemIcons.Shield.ToBitmap();
         }
 
         protected override void SetVisibleCore(bool value)
@@ -944,28 +948,51 @@ namespace LaptopAlarm
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
         {
-            if (TaskService.Instance.GetTask("LaptopAlarm") == null)
+            if (changingCheckbox9 == false)
             {
-                TaskService ts = new TaskService();
-                TaskDefinition definition = ts.NewTask();
-                definition.RegistrationInfo.Description = "Launches LaptopAlarm on startup";
-                definition.RegistrationInfo.Author = "LaptopAlarm";
-                definition.RegistrationInfo.Date = DateTime.Now;
-                definition.Principal.LogonType = TaskLogonType.Password;
-                BootTrigger bootTrigger = new BootTrigger();
-                definition.Triggers.Add(bootTrigger);
-                ExecAction action = new ExecAction(Application.ExecutablePath);
-                definition.Actions.Add(action);
-                definition.Settings.DisallowStartIfOnBatteries = false;
-                definition.Settings.RunOnlyIfIdle = false;
-                definition.Settings.RunOnlyIfNetworkAvailable = false;
-                definition.Settings.RunOnlyIfLoggedOn = false;
-                definition.Settings.StopIfGoingOnBatteries = false;
+                if (TaskService.Instance.GetTask("LaptopAlarm") == null)
+                {
+                    TaskService ts = new TaskService();
+                    TaskDefinition definition = ts.NewTask();
+                    definition.RegistrationInfo.Description = "Launches LaptopAlarm on startup";
+                    definition.RegistrationInfo.Author = "LaptopAlarm";
+                    definition.RegistrationInfo.Date = DateTime.Now;
+                    definition.Principal.LogonType = TaskLogonType.Password;
+                    BootTrigger bootTrigger = new BootTrigger();
+                    definition.Triggers.Add(bootTrigger);
+                    ExecAction action = new ExecAction(Application.ExecutablePath);
+                    definition.Actions.Add(action);
+                    definition.Settings.DisallowStartIfOnBatteries = false;
+                    definition.Settings.RunOnlyIfIdle = false;
+                    definition.Settings.RunOnlyIfNetworkAvailable = false;
+                    definition.Settings.StopIfGoingOnBatteries = false;
+                    definition.Settings.IdleSettings.StopOnIdleEnd = false;
 
-                //String username = "";
-                //String password = "";
+                    String username, password;
+                    if (definition.Principal.RequiresPassword())
+                    {
+                        passwordBox dialogBox = new passwordBox();
+                        if (dialogBox.ShowDialog() == DialogResult.OK)
+                        {
+                            username = dialogBox.getUsername();
+                            password = dialogBox.getPassword();
+                            ts.RootFolder.RegisterTaskDefinition("LaptopAlarm", definition, TaskCreation.Create, username, password, TaskLogonType.Password);
+                        }
+                        else
+                        {
+                            changingCheckbox9 = true;
+                            checkBox9.Checked = false;
+                        }
+                    }
+                }
+                else
+                {
 
-                ts.RootFolder.RegisterTaskDefinition("LaptopAlarm", definition, TaskCreation.Create, username, password, TaskLogonType.Password);
+                }
+            }
+            else
+            {
+                changingCheckbox9 = false;
             }
         }
 
