@@ -551,6 +551,8 @@ namespace LaptopAlarm
             this.checkBox9.Size = new System.Drawing.Size(195, 17);
             this.checkBox9.TabIndex = 0;
             this.checkBox9.Text = "Start program upon computer restart";
+            this.toolTip2.SetToolTip(this.checkBox9, "UAC permissions required. To update the service, press and hold shift when checki" +
+        "ng the box.");
             this.checkBox9.UseVisualStyleBackColor = true;
             this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
             // 

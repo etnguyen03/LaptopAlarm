@@ -972,7 +972,7 @@ namespace LaptopAlarm
         {
             if (changingCheckbox9 == false && initCheckChange == true)
             {
-                if (TaskService.Instance.GetTask("LaptopAlarm") == null)
+                if (TaskService.Instance.GetTask("LaptopAlarm") == null || Control.ModifierKeys == Keys.Shift)
                 {
                     ProcessStartInfo startInfo = new ProcessStartInfo(Application.ExecutablePath, "registerService");
                     startInfo.Verb = "runas";
@@ -1070,6 +1070,7 @@ namespace LaptopAlarm
             definition.Settings.RunOnlyIfNetworkAvailable = false;
             definition.Settings.StopIfGoingOnBatteries = false;
             definition.Settings.IdleSettings.StopOnIdleEnd = false;
+            definition.Principal.RunLevel = TaskRunLevel.Highest;
 
             String username, password;
             if (definition.Principal.RequiresPassword())
@@ -1081,7 +1082,7 @@ namespace LaptopAlarm
                     password = dialogBox.getPassword();
                     try
                     {
-                        ts.RootFolder.RegisterTaskDefinition("LaptopAlarm", definition, TaskCreation.Create, username, password, TaskLogonType.Password);
+                        ts.RootFolder.RegisterTaskDefinition("LaptopAlarm", definition, TaskCreation.CreateOrUpdate, username, password, TaskLogonType.Password);
                         return 0;
                     }
                     catch (Exception)
