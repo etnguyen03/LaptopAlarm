@@ -250,29 +250,5 @@ namespace LaptopAlarm.Properties {
                 this["show_trigger_alarm"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool enable_sentry {
-            get {
-                return ((bool)(this["enable_sentry"]));
-            }
-            set {
-                this["enable_sentry"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool sentry_asked {
-            get {
-                return ((bool)(this["sentry_asked"]));
-            }
-            set {
-                this["sentry_asked"] = value;
-            }
-        }
     }
 }
