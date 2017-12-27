@@ -207,6 +207,30 @@ namespace LaptopAlarm
             // Apply the "show-trigger-alarm" setting
             toolStripMenuItem1.Visible = Properties.Settings.Default.show_trigger_alarm;
         }
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (Properties.Settings.Default.enable_sentry)
+            {
+                ravenClient.Capture(new SentryEvent((Exception)e.ExceptionObject));
+            }
+            if (MessageBox.Show("An exception has occured. Click OK to terminate the program; click cancel to attempt to continue." + Environment.NewLine + "Details: " + ((Exception)e.ExceptionObject).Message) == DialogResult.OK)
+            {
+                Environment.Exit(-1);
+            }
+            
+        }
+
+        private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            if (Properties.Settings.Default.enable_sentry)
+            {
+                ravenClient.Capture(new SentryEvent(e.Exception));
+            }
+            if (MessageBox.Show("An exception has occured. Click OK to terminate the program; click cancel to attempt to continue." + Environment.NewLine + "Details: " + e.Exception.Message) == DialogResult.OK)
+            {
+                Environment.Exit(-1);
+            }
+        }
 
         // hotkey pressed
         private void HotKeyManager_HotKeyPressed(object sender, HotKeyEventArgs e)

@@ -520,6 +520,7 @@ namespace LaptopAlarm
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox11);
             this.tabPage1.Controls.Add(this.checkBox10);
             this.tabPage1.Controls.Add(this.checkBox9);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -595,6 +596,17 @@ namespace LaptopAlarm
             this.checkBox10.Text = "Show \"Trigger Alarm\" in Context Menu";
             this.checkBox10.UseVisualStyleBackColor = true;
             this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
+            //
+            // checkBox11
+            //
+            this.checkBox11.AutoSize = true;
+            this.checkBox11.Location = new System.Drawing.Point(15, 62);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(220, 17);
+            this.checkBox11.TabIndex = 5;
+            this.checkBox11.Text = "Automatically send bug and crash reports";
+            this.checkBox11.UseVisualStyleBackColor = true;
+            this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
             // 
             // Form1
             // 
