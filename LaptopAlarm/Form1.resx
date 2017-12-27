@@ -6296,9 +6296,6 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 </value>
   </data>
-  <metadata name="toolTip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>546, 17</value>
-  </metadata>
   <data name="richTextBox1.Text" xml:space="preserve">
     <value>LaptopAlarm
 Copyright © Ethan Nguyen; all rights reserved.
@@ -6309,8 +6306,13 @@ This program is free software: you can redistribute it and/or modify it under th
 CREDITS
 Sean Chapman - Audio API
 Matt Cole - HotKeyManager
-Audio Productions - Default Alarm Sound</value>
+Audio Productions - Default Alarm Sound
+James Newton-King - JSON API
+Sentry Team - Bug Reporting</value>
   </data>
+  <metadata name="toolTip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>546, 17</value>
+  </metadata>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>285, 17</value>
   </metadata>
