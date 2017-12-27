@@ -104,6 +104,21 @@ namespace LaptopAlarm
             }
             initCheckChange = true;
             checkBox10.Checked = Properties.Settings.Default.show_trigger_alarm;
+
+            // Show Sentry dialog if necessary
+            if (Properties.Settings.Default.sentry_asked == false)
+            {
+                if (MessageBox.Show("Welcome to LaptopAlarm! LaptopAlarm is currently under development. The developers request that bugs and crash reports automatically be sent to them for development purposes. " + Environment.NewLine + "By clicking Yes below, you authorize LaptopAlarm to automatically send bug and crash reports to the developers of LaptopAlarm.", "LaptopAlarm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Properties.Settings.Default.enable_sentry = true;
+                }
+                else
+                {
+                    Properties.Settings.Default.enable_sentry = false;
+                }
+                Properties.Settings.Default.sentry_asked = true;
+                Properties.Settings.Default.Save();
+            }
         }
 
         protected override void SetVisibleCore(bool value)
