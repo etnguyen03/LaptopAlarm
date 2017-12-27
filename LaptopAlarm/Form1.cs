@@ -63,6 +63,8 @@ namespace LaptopAlarm
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            int i = 0;
+            int x = 1 / i;
             //String[] armShortcut = new String[2];
             //armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
             //foreach (String item in armShortcut)
@@ -238,7 +240,7 @@ namespace LaptopAlarm
             {
                 ravenClient.Capture(new SentryEvent((Exception)e.ExceptionObject));
             }
-            if (MessageBox.Show("An exception has occured. Click OK to terminate the program; click cancel to attempt to continue." + Environment.NewLine + "Details: " + ((Exception)e.ExceptionObject).Message) == DialogResult.OK)
+            if (MessageBox.Show("An exception has occured. Click OK to terminate the program; click cancel to attempt to continue." + Environment.NewLine + "Details: " + ((Exception)e.ExceptionObject).Message, "LaptopAlarm", MessageBoxButtons.OKCancel, MessageBoxIcon.Error) == DialogResult.OK)
             {
                 Environment.Exit(-1);
             }
@@ -251,7 +253,7 @@ namespace LaptopAlarm
             {
                 ravenClient.Capture(new SentryEvent(e.Exception));
             }
-            if (MessageBox.Show("An exception has occured. Click OK to terminate the program; click cancel to attempt to continue." + Environment.NewLine + "Details: " + e.Exception.Message) == DialogResult.OK)
+            if (MessageBox.Show("An exception has occured. Click OK to terminate the program; click cancel to attempt to continue." + Environment.NewLine + "Details: " + e.Exception.Message, "LaptopAlarm", MessageBoxButtons.OKCancel, MessageBoxIcon.Error) == DialogResult.OK)
             {
                 Environment.Exit(-1);
             }
