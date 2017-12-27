@@ -130,6 +130,11 @@ namespace LaptopAlarm
         private void ProgramLoad()
         {
             // Program load:
+
+            // Exception handling
+            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
             // ARM keyboard shortcut
             HotKeyManager.RegisterHotKey(Keys.A, KeyModifiers.Control | KeyModifiers.Alt);
@@ -206,6 +211,16 @@ namespace LaptopAlarm
 
             // Apply the "show-trigger-alarm" setting
             toolStripMenuItem1.Visible = Properties.Settings.Default.show_trigger_alarm;
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         // hotkey pressed
