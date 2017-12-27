@@ -1071,6 +1071,7 @@ namespace LaptopAlarm
             definition.Settings.StopIfGoingOnBatteries = false;
             definition.Settings.IdleSettings.StopOnIdleEnd = false;
             definition.Principal.RunLevel = TaskRunLevel.Highest;
+            definition.Principal.UserId = WindowsIdentity.GetCurrent().Name;
 
             String username, password;
             if (definition.Principal.RequiresPassword())
