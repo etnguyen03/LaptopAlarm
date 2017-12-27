@@ -91,6 +91,7 @@ namespace LaptopAlarm
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -695,6 +696,7 @@ namespace LaptopAlarm
         private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.CheckBox checkBox10;
+        private System.Windows.Forms.CheckBox checkBox11;
     }
 }
 
