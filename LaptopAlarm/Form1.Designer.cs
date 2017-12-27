@@ -84,7 +84,6 @@ namespace LaptopAlarm
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -92,7 +91,7 @@ namespace LaptopAlarm
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -531,17 +530,6 @@ namespace LaptopAlarm
             this.tabPage1.Text = "Program Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // checkBox10
-            // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(15, 39);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(208, 17);
-            this.checkBox10.TabIndex = 1;
-            this.checkBox10.Text = "Show \"Trigger Alarm\" in Context Menu";
-            this.checkBox10.UseVisualStyleBackColor = true;
-            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
-            // 
             // checkBox9
             // 
             this.checkBox9.AutoSize = true;
@@ -598,8 +586,19 @@ namespace LaptopAlarm
             this.toolTip2.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip2.ToolTipTitle = "Help";
             // 
-            // checkBox11
+            // checkBox10
             // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Location = new System.Drawing.Point(15, 39);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(208, 17);
+            this.checkBox10.TabIndex = 1;
+            this.checkBox10.Text = "Show \"Trigger Alarm\" in Context Menu";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
+            //
+            // checkBox11
+            //
             this.checkBox11.AutoSize = true;
             this.checkBox11.Location = new System.Drawing.Point(15, 62);
             this.checkBox11.Name = "checkBox11";
@@ -696,7 +695,6 @@ namespace LaptopAlarm
         private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBox11;
     }
 }
 

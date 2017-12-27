@@ -27,8 +27,6 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using Microsoft.Win32;
-using SharpRaven;
-using SharpRaven.Data;
 
 namespace LaptopAlarm
 {
@@ -46,7 +44,6 @@ namespace LaptopAlarm
         private RegistryKey regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
         private bool initAlarmChecked = false; // variable that stores if the restartalarm check was carried out or not
         private bool initCheckChange = false; // whether or not the settings have been initialized
-        RavenClient ravenClient = new RavenClient("https://511309ad0d1b49d38c9066585731b48e:1314e62be406426297560f909b53b752@sentry.io/264405");
 
         // arm keyboard shortcut variables
         Keys arm_key = Keys.A;
@@ -107,23 +104,6 @@ namespace LaptopAlarm
             }
             initCheckChange = true;
             checkBox10.Checked = Properties.Settings.Default.show_trigger_alarm;
-
-            // Show Sentry dialog if necessary
-            if (Properties.Settings.Default.sentry_asked == false)
-            {
-                if (MessageBox.Show("Welcome to LaptopAlarm! LaptopAlarm is currently under development. The developers request that bugs and crash reports automatically be sent to them for development purposes." + Environment.NewLine + Environment.NewLine + "By clicking Yes below, you authorize LaptopAlarm to automatically send bug and crash reports to the developers of LaptopAlarm.", "LaptopAlarm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    Properties.Settings.Default.enable_sentry = true;
-                }
-                else
-                {
-                    Properties.Settings.Default.enable_sentry = false;
-                }
-                Properties.Settings.Default.sentry_asked = true;
-                Properties.Settings.Default.Save();
-            }
-
-            checkBox11.Checked = Properties.Settings.Default.enable_sentry;
         }
 
         protected override void SetVisibleCore(bool value)
@@ -150,11 +130,6 @@ namespace LaptopAlarm
         private void ProgramLoad()
         {
             // Program load:
-
-            // Exception handling
-            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-
             myAlarm = new Alarm(Properties.Settings.Default.onalarm_audio, Properties.Settings.Default.onalarm_audio_default, Properties.Settings.Default.CustomAudioFilePath, Properties.Settings.Default.onalarm_audio_volincrease);
             // ARM keyboard shortcut
             HotKeyManager.RegisterHotKey(Keys.A, KeyModifiers.Control | KeyModifiers.Alt);
@@ -232,7 +207,6 @@ namespace LaptopAlarm
             // Apply the "show-trigger-alarm" setting
             toolStripMenuItem1.Visible = Properties.Settings.Default.show_trigger_alarm;
         }
-
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             if (Properties.Settings.Default.enable_sentry)
@@ -1034,12 +1008,6 @@ namespace LaptopAlarm
                 Properties.Settings.Default.show_trigger_alarm = false;
                 toolStripMenuItem1.Visible = false;
             }
-            Properties.Settings.Default.Save();
-        }
-
-        private void checkBox11_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.enable_sentry = checkBox11.Checked;
             Properties.Settings.Default.Save();
         }
 
