@@ -235,7 +235,10 @@ namespace LaptopAlarm
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            ravenClient.Capture(new SentryEvent((Exception)e.ExceptionObject));
+            if (Properties.Settings.Default.enable_sentry)
+            {
+                ravenClient.Capture(new SentryEvent((Exception)e.ExceptionObject));
+            }
             if (MessageBox.Show("An exception has occured. Click OK to terminate the program; click cancel to attempt to continue." + Environment.NewLine + "Details: " + ((Exception)e.ExceptionObject).Message) == DialogResult.OK)
             {
                 Environment.Exit(-1);
@@ -245,7 +248,10 @@ namespace LaptopAlarm
 
         private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            ravenClient.Capture(new SentryEvent(e.Exception));
+            if (Properties.Settings.Default.enable_sentry)
+            {
+                ravenClient.Capture(new SentryEvent(e.Exception));
+            }
             if (MessageBox.Show("An exception has occured. Click OK to terminate the program; click cancel to attempt to continue." + Environment.NewLine + "Details: " + e.Exception.Message) == DialogResult.OK)
             {
                 Environment.Exit(-1);

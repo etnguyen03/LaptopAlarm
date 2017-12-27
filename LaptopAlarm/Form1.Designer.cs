@@ -521,6 +521,7 @@ namespace LaptopAlarm
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox11);
             this.tabPage1.Controls.Add(this.checkBox10);
             this.tabPage1.Controls.Add(this.checkBox9);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -554,7 +555,6 @@ namespace LaptopAlarm
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.checkBox11);
             this.tabPage3.Controls.Add(this.richTextBox1);
             this.tabPage3.Controls.Add(this.pictureBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -570,7 +570,7 @@ namespace LaptopAlarm
             this.richTextBox1.Location = new System.Drawing.Point(3, 11);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(401, 270);
+            this.richTextBox1.Size = new System.Drawing.Size(401, 297);
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
@@ -601,10 +601,10 @@ namespace LaptopAlarm
             // checkBox11
             // 
             this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(3, 287);
+            this.checkBox11.Location = new System.Drawing.Point(15, 62);
             this.checkBox11.Name = "checkBox11";
             this.checkBox11.Size = new System.Drawing.Size(220, 17);
-            this.checkBox11.TabIndex = 4;
+            this.checkBox11.TabIndex = 5;
             this.checkBox11.Text = "Automatically send bug and crash reports";
             this.checkBox11.UseVisualStyleBackColor = true;
             this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
@@ -635,7 +635,6 @@ namespace LaptopAlarm
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
