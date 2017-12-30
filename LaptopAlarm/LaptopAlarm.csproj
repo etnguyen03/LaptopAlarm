@@ -110,6 +110,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\abouttext.rtf" />
     <None Include="Resources\alarm copy.png" />
   </ItemGroup>
   <ItemGroup>

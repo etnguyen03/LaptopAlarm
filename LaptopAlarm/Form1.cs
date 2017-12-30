@@ -63,8 +63,6 @@ namespace LaptopAlarm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            int i = 0;
-            int x = 1 / i;
             //String[] armShortcut = new String[2];
             //armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
             //foreach (String item in armShortcut)
@@ -126,6 +124,9 @@ namespace LaptopAlarm
             }
 
             checkBox11.Checked = Properties.Settings.Default.enable_sentry;
+
+            // Initialize about box
+            richTextBox1.Rtf = Properties.Resources.abouttext;
         }
 
         protected override void SetVisibleCore(bool value)

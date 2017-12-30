@@ -19,7 +19,7 @@ namespace LaptopAlarm.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,20 @@ namespace LaptopAlarm.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset2 Symbol;}}
+        ///{\colortbl ;\red0\green0\blue255;}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\b\f0\fs24 LaptopAlarm\b0\par
+        ///Copyright \&apos;a9 2017-2018 Ethan Nguyen; all rights reserved.\par
+        ///{{\field{\*\fldinst{HYPERLINK https://github.com/etnguyen03/LaptopAlarm }}{\fldrslt{https://github.com/etnguyen03/LaptopAlarm\ul0\cf0}}}}\f0\fs24 ; {{\field{\*\fldinst{HYPERLINK http://www.ethannguyen.tk [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string abouttext {
+            get {
+                return ResourceManager.GetString("abouttext", resourceCulture);
             }
         }
         
