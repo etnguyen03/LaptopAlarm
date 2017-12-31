@@ -13,15 +13,16 @@
 // You should have received a copy of the GNU General Public License
 // along with LaptopAlarm.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using System.Media;
+using LaptopAlarm;
 
 public class Alarm
 {
     private bool myplayAudio;
-    private LaptopAlarm.onalarm_audio_settings mysoundType;
+    private onalarm_audio_settings mysoundType;
     private string myaudioLocation;
     private bool myincreaseVolume;
-    private System.Media.SoundPlayer player;
+    private SoundPlayer player;
     private bool isAlarmPlaying = false;
 
     /// <summary>
@@ -46,13 +47,13 @@ public class Alarm
     {
         if (myplayAudio)
         {
-            if (mysoundType == LaptopAlarm.onalarm_audio_settings.defaultSound)
+            if (mysoundType == onalarm_audio_settings.defaultSound)
             {
-                player = new System.Media.SoundPlayer(LaptopAlarm.Properties.Resources.laptop_theft_alarm);
+                player = new SoundPlayer(LaptopAlarm.Properties.Resources.laptop_theft_alarm);
             }
             else
             {
-                player = new System.Media.SoundPlayer(myaudioLocation);
+                player = new SoundPlayer(myaudioLocation);
             }
             isAlarmPlaying = true;
             player.PlayLooping();
