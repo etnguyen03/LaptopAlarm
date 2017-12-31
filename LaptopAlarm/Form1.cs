@@ -14,16 +14,9 @@
 // along with LaptopAlarm.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using AudioSwitcher.AudioApi.CoreAudio;
-using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using Microsoft.Win32;
@@ -63,20 +56,6 @@ namespace LaptopAlarm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //String[] armShortcut = new String[2];
-            //armShortcut = Properties.Settings.Default.ArmShortcut.Split(Convert.ToChar(","));
-            //foreach (String item in armShortcut)
-            //{
-            //    textBox1.Text += " " + item + " ";
-            //}
-
-            //String[] disarmShortcut = new String[2];
-            //disarmShortcut = Properties.Settings.Default.DisarmShortcut.Split(Convert.ToChar(","));
-            //foreach (String item in disarmShortcut)
-            //{
-            //    textBox2.Text += " " + item + " ";
-            //}
-
             // initialize checkbox settings
             checkBox1.Checked = Properties.Settings.Default.trigger_power;
             checkBox2.Checked = Properties.Settings.Default.trigger_usb;
@@ -374,77 +353,6 @@ namespace LaptopAlarm
             allowClose = true;
             Application.Exit();
         }
-
-        private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        //private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Control == true)
-        //    {
-        //        if (!textBox1.Text.Contains("Control"))
-        //        {
-        //            textBox1.Text += " Control ";
-        //        }
-        //    }
-        //    else if (e.Alt == true)
-        //    {
-        //        if (!textBox1.Text.Contains("Alt"))
-        //        {
-        //            textBox1.Text += " Alt ";
-        //        }
-        //    }
-        //    else if (e.Shift == true)
-        //    {
-        //        if (!textBox1.Text.Contains("Shift"))
-        //        {
-        //            textBox1.Text += " Shift ";
-        //        }
-        //    }
-        //    else if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
-        //    {
-        //        if (textBox1.Text.Contains("Control") || textBox1.Text.Contains("Alt") || textBox1.Text.Contains("Shift"))
-        //        {
-        //            if (arm_letter_entered == false)
-        //            {
-        //                textBox1.Text += "" + e.KeyCode.ToString() + "";
-        //                arm_letter_entered = true;
-        //            }
-        //        }
-        //        else if (arm_letter_entered == true)
-        //        {
-        //            // empty on purpose
-        //        }
-        //        else
-        //        {
-        //            toolTip1.Show("You must first press either Control, Alt, or Shift.", textBox1);
-        //        }
-        //    }
-        //}
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    arm_letter_entered = false;
-        //    textBox1.Text = "";
-        //}
-
-        //private void textBox1_Leave(object sender, EventArgs e)
-        //{
-        //    String textbox_arm = textBox1.Text.Replace("  ", " ");
-        //    textbox_arm = textbox_arm.Trim();
-
-        //    String[] new_arm_kbd = textbox_arm.Split(Char.Parse(" "));
-        //    String new_arm_shortcut = "";
-        //    foreach (String kbd_item in new_arm_kbd)
-        //    {
-        //        new_arm_shortcut = kbd_item + ",";
-        //    }
-        //    new_arm_shortcut = new_arm_shortcut.Remove(new_arm_shortcut.Length - 1);
-        //    Properties.Settings.Default.ArmShortcut = new_arm_shortcut;
-        //    Properties.Settings.Default.Save();
-        //}
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
@@ -783,79 +691,8 @@ namespace LaptopAlarm
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        //private void textBox2_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Control == true)
-        //    {
-        //        if (!textBox2.Text.Contains("Control"))
-        //        {
-        //            textBox2.Text += " Control ";
-        //        }
-        //    }
-        //    else if (e.Alt == true)
-        //    {
-        //        if (!textBox2.Text.Contains("Alt"))
-        //        {
-        //            textBox2.Text += " Alt ";
-        //        }
-        //    }
-        //    else if (e.Shift == true)
-        //    {
-        //        if (!textBox2.Text.Contains("Shift"))
-        //        {
-        //            textBox2.Text += " Shift ";
-        //        }
-        //    }
-        //    else if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
-        //    {
-        //        if (textBox2.Text.Contains("Control") || textBox2.Text.Contains("Alt") || textBox2.Text.Contains("Shift"))
-        //        {
-        //            if (disarm_letter_entered == false)
-        //            {
-        //                textBox2.Text += "" + e.KeyCode.ToString() + "";
-        //                disarm_letter_entered = true;
-        //            }
-        //        }
-        //        else if (disarm_letter_entered == true)
-        //        {
-        //            // empty on purpose
-        //        }
-        //        else
-        //        {
-        //            toolTip1.Show("You must first press either Control, Alt, or Shift.", textBox2);
-        //        }
-        //    }
-        //}
-
-        //private void button5_Click(object sender, EventArgs e)
-        //{
-        //    disarm_letter_entered = false;
-        //    textBox2.Text = "";
-        //}
-
         public void toggleToolStripMenuItems()
         {
-            //if (toolStripMenuItem2.Enabled == true)
-            //{
-            //    toolStripMenuItem2.Enabled = false;
-            //}
-            //else
-            //{
-            //    toolStripMenuItem2.Enabled = true;
-            //}
-            //if (toolStripMenuItem3.Enabled == true)
-            //{
-            //    toolStripMenuItem3.Enabled = false;
-            //}
-            //else
-            //{
-            //    toolStripMenuItem3.Enabled = true;
-            //}
             backgroundWorker1.RunWorkerAsync();
         }
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1043,50 +880,5 @@ namespace LaptopAlarm
             }
             Properties.Settings.Default.Save();
         }
-
-
-        //// Volume set function
-        //private void setVolume()
-        //{
-        //    if (playbackDevice.Volume != 20)
-        //    {
-        //        playbackDevice.Volume = 20;
-        //    }
-        //    if (playbackDevice.IsMuted)
-        //    {
-        //        playbackDevice.ToggleMute();
-        //    }
-        //    //playbackDevice.VolumeChanged += new EventHandler<AudioSwitcher.AudioApi.DeviceVolumeChangedArgs>(new VolumeChanged());
-        //    playbackDevice.VolumeChanged.Subscribe(new VolumeChanged());
-
-        //}
-
-        //public class VolumeChanged : IObserver<AudioSwitcher.AudioApi.CoreAudio.CoreAudioDevice>
-        //{
-        //    private IDisposable unsubscriber;
-        //    private bool first = true;
-        //    private CoreAudioDevice last;
-
-        //    public virtual void Subscribe(IObservable<CoreAudioDevice> provider)
-        //    {
-        //        unsubscriber = provider.Subscribe(this);
-        //    }
-        //    public virtual void Unsubscribe()
-        //    {
-        //        unsubscriber.Dispose();
-        //    }
-        //    public virtual void OnCompleted()
-        //    {
-
-        //    }
-        //    public virtual void OnError(Exception e)
-        //    {
-
-        //    }
-        //    public virtual void OnNext(CoreAudioDevice c)
-        //    {
-
-        //    }
-        //}
     }
 }
