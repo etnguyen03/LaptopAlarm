@@ -701,7 +701,7 @@ namespace LaptopAlarm
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = false; panel1.Visible = true;  }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = false; panel1.Visible = true; disableTabPage2(); }));
                 }
                 else
                 {
@@ -714,7 +714,7 @@ namespace LaptopAlarm
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = true; panel1.Visible = false; }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = true; panel1.Visible = false; enableTabPage2(); }));
                 }
                 else
                 {
@@ -727,7 +727,7 @@ namespace LaptopAlarm
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = false; panel1.Visible = false;}));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = false; panel1.Visible = false; enableTabPage2(); }));
                 }
                 else
                 {
@@ -740,7 +740,7 @@ namespace LaptopAlarm
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = true; panel1.Visible = true; }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = true; panel1.Visible = true; disableTabPage2(); }));
                 }
                 else
                 {
@@ -898,6 +898,9 @@ namespace LaptopAlarm
             {
                 ctl.Enabled = false;
             }
+            panel1.Enabled = true;
+            label1.Enabled = true;
+            panel1.Location = new System.Drawing.Point(106, 19);
         }
 
         /// <summary>
@@ -909,6 +912,9 @@ namespace LaptopAlarm
             {
                 ctl.Enabled = true;
             }
+            panel1.Visible = false;
+            panel1.Enabled = true;
+            label1.Enabled = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
