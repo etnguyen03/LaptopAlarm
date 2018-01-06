@@ -880,5 +880,77 @@ namespace LaptopAlarm
             }
             Properties.Settings.Default.Save();
         }
+
+        /// <summary>
+        /// Disables all the controls on tabpage2.
+        /// </summary>
+        private void disableTabPage2()
+        {
+            foreach (Control ctl in tabPage2.Controls)
+            {
+                ctl.Enabled = false;
+            }
+            panel1.Enabled = true;
+            label1.Enabled = true;
+            panel1.Location = new System.Drawing.Point(106, 19);
+        }
+
+        /// <summary>
+        /// Enables all the controls on tabpage2.
+        /// </summary>
+        private void enableTabPage2()
+        {
+            foreach (Control ctl in tabPage2.Controls)
+            {
+                ctl.Enabled = true;
+            }
+            panel1.Visible = false;
+            panel1.Enabled = true;
+            label1.Enabled = true;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            // disarm the alarm
+            if (alarmArmed == true)
+            {
+                alarmArmed = false;
+                myAlarm.stopAlarm();
+                stopVolProcess = true;
+                if (workerVolThread != null)
+                {
+                    if (workerVolThread.IsAlive == true)
+                    {
+                        workerVolThread.Abort();
+                    }
+                }
+                if (workerPowerThread != null)
+                {
+                    if (workerPowerThread.IsAlive == true)
+                    {
+                        workerPowerThread.Abort();
+                    }
+                }
+                if (workerBatThread != null)
+                {
+                    if (workerBatThread.IsAlive == true)
+                    {
+                        workerBatThread.Abort();
+                    }
+                }
+                if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt"))
+                {
+                    File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt");
+                }
+                if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt"))
+                {
+                    File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt");
+                }
+                alarmForm.form2_close = true;
+                notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
+
+                toggleToolStripMenuItems();
+            }
+        }
     }
 }
