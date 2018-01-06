@@ -701,22 +701,26 @@ namespace LaptopAlarm
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = false; }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = false; panel1.Visible = true; disableTabPage2(); }));
                 }
                 else
                 {
                     toolStripMenuItem2.Enabled = false;
+                    panel1.Visible = true;
+                    disableTabPage2();
                 }
             }
             else
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = true; }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = true; panel1.Visible = false; enableTabPage2(); }));
                 }
                 else
                 {
                     toolStripMenuItem2.Enabled = true;
+                    panel1.Visible = false;
+                    enableTabPage2();
                 }
             }
             if (toolStripMenuItem3.Enabled == true)

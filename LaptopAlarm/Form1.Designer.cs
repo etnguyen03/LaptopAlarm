@@ -56,6 +56,8 @@ namespace LaptopAlarm
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
@@ -98,6 +100,7 @@ namespace LaptopAlarm
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox5.SuspendLayout();
@@ -184,6 +187,7 @@ namespace LaptopAlarm
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.panel1);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -239,6 +243,16 @@ namespace LaptopAlarm
             this.checkBox6.Text = "Send email to self";
             this.checkBox6.UseVisualStyleBackColor = true;
             this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged_1);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(95, 50);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(87, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Disarm Alarm";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // groupBox6
             // 
@@ -631,16 +645,6 @@ namespace LaptopAlarm
             this.toolTip2.IsBalloon = true;
             this.toolTip2.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip2.ToolTipTitle = "Help";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(95, 50);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(87, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Disarm Alarm";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Form1
             // 
