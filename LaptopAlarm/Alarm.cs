@@ -61,6 +61,15 @@ public class Alarm
     }
 
     /// <summary>
+    /// Gets a value of whether the alarm is sounding.
+    /// </summary>
+    /// <returns>A boolean, true if alarm sounding, false otherwise.</returns>
+    public bool isAlarmSounding()
+    {
+        return isAlarmPlaying;
+    }
+
+    /// <summary>
     /// Stop the alarm.
     /// </summary>
     public void stopAlarm()
