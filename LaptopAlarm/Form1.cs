@@ -860,8 +860,11 @@ namespace LaptopAlarm
                 email.sendtheEmail("ALARM: Manually triggered alarm " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             }
             myAlarm.causeAlarm();
+            if (alarmArmed == false)
+            {
+                toggleToolStripMenuItems();
+            }
             alarmArmed = true;
-            toggleToolStripMenuItems();
             stopVolProcess = false;
             workerVolThread = new Thread(new ThreadStart(setVolume));
             workerVolThread.Start();
