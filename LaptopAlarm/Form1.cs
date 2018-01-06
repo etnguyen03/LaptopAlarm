@@ -959,5 +959,21 @@ namespace LaptopAlarm
                 toggleToolStripMenuItems();
             }
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (alarmArmed)
+            {
+                toolStripStatusLabel2.Text = "Armed";
+            }
+            else
+            {
+                toolStripStatusLabel2.Text = "Disarmed";
+            }
+            if (myAlarm.isAlarmSounding() == true)
+            {
+                toolStripStatusLabel2.Text = "Alarm triggered";
+            }
+        }
     }
 }
