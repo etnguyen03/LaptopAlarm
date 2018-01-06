@@ -701,44 +701,52 @@ namespace LaptopAlarm
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = false; }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = false; panel1.Visible = true;  }));
                 }
                 else
                 {
                     toolStripMenuItem2.Enabled = false;
+                    panel1.Visible = true;
+                    disableTabPage2();
                 }
             }
             else
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = true; }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = true; panel1.Visible = false; }));
                 }
                 else
                 {
                     toolStripMenuItem2.Enabled = true;
+                    panel1.Visible = false;
+                    enableTabPage2();
                 }
             }
             if (toolStripMenuItem3.Enabled == true)
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = false; }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = false; panel1.Visible = false;}));
                 }
                 else
                 {
                     toolStripMenuItem3.Enabled = false;
+                    panel1.Visible = false;
+                    enableTabPage2();
                 }
             }
             else
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = true; }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = true; panel1.Visible = true; }));
                 }
                 else
                 {
                     toolStripMenuItem3.Enabled = true;
+                    panel1.Visible = true;
+                    disableTabPage2();
                 }
             }
         }
@@ -879,6 +887,72 @@ namespace LaptopAlarm
                 toolStripMenuItem1.Visible = false;
             }
             Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// Disables all the controls on tabpage2.
+        /// </summary>
+        private void disableTabPage2()
+        {
+            foreach (Control ctl in tabPage2.Controls)
+            {
+                ctl.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Enables all the controls on tabpage2.
+        /// </summary>
+        private void enableTabPage2()
+        {
+            foreach (Control ctl in tabPage2.Controls)
+            {
+                ctl.Enabled = true;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // disarm the alarm
+            if (alarmArmed == true)
+            {
+                alarmArmed = false;
+                myAlarm.stopAlarm();
+                stopVolProcess = true;
+                if (workerVolThread != null)
+                {
+                    if (workerVolThread.IsAlive == true)
+                    {
+                        workerVolThread.Abort();
+                    }
+                }
+                if (workerPowerThread != null)
+                {
+                    if (workerPowerThread.IsAlive == true)
+                    {
+                        workerPowerThread.Abort();
+                    }
+                }
+                if (workerBatThread != null)
+                {
+                    if (workerBatThread.IsAlive == true)
+                    {
+                        workerBatThread.Abort();
+                    }
+                }
+                if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt"))
+                {
+                    File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmstatus.txt");
+                }
+                if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt"))
+                {
+                    File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\alarmarmed.txt");
+                }
+                alarmForm.form2_close = true;
+                notifyIcon2.ShowBalloonTip(100, "LaptopAlarm", "Disarmed", ToolTipIcon.Info);
+
+                toggleToolStripMenuItems();
+            }
         }
     }
 }

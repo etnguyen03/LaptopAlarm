@@ -93,6 +93,9 @@ namespace LaptopAlarm
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.contextMenuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -105,6 +108,7 @@ namespace LaptopAlarm
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip2
@@ -195,6 +199,7 @@ namespace LaptopAlarm
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.panel1);
             this.groupBox4.Controls.Add(this.checkBox6);
             this.groupBox4.Controls.Add(this.groupBox6);
             this.groupBox4.Controls.Add(this.checkBox3);
@@ -609,6 +614,36 @@ namespace LaptopAlarm
             this.toolTip2.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip2.ToolTipTitle = "Help";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(107, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(277, 100);
+            this.panel1.TabIndex = 3;
+            this.panel1.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(251, 26);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Alarm Armed\r\nChanges may not be made while the alarm is armed.";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(103, 58);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Disarm alarm";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(515, 361);
@@ -636,6 +671,8 @@ namespace LaptopAlarm
             this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -697,6 +734,9 @@ namespace LaptopAlarm
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.CheckBox checkBox10;
         private System.Windows.Forms.CheckBox checkBox11;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
