@@ -701,52 +701,44 @@ namespace LaptopAlarm
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = false; panel1.Visible = true; disableTabPage2(); }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = false; }));
                 }
                 else
                 {
                     toolStripMenuItem2.Enabled = false;
-                    panel1.Visible = true;
-                    disableTabPage2();
                 }
             }
             else
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = true; panel1.Visible = false; enableTabPage2(); }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem2.Enabled = true; }));
                 }
                 else
                 {
                     toolStripMenuItem2.Enabled = true;
-                    panel1.Visible = false;
-                    enableTabPage2();
                 }
             }
             if (toolStripMenuItem3.Enabled == true)
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = false; panel1.Visible = false; enableTabPage2(); }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = false; }));
                 }
                 else
                 {
                     toolStripMenuItem3.Enabled = false;
-                    panel1.Visible = false;
-                    enableTabPage2();
                 }
             }
             else
             {
                 if (contextMenuStrip2.InvokeRequired)
                 {
-                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = true; panel1.Visible = true; disableTabPage2(); }));
+                    contextMenuStrip2.Invoke(new MethodInvoker(delegate { toolStripMenuItem3.Enabled = true; }));
                 }
                 else
                 {
                     toolStripMenuItem3.Enabled = true;
-                    panel1.Visible = true;
-                    disableTabPage2();
                 }
             }
         }
