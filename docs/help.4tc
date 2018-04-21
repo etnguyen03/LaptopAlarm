@@ -1,0 +1,33 @@
+\expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi
+\doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{1}{x1-1000}{QQ2-1-1}{Contents}}{1}\relax 
+\doTocEntry\tocpart{I}{\csname a:TocLink\endcsname{1}{x1-2000I}{QQ2-1-2}{Basic Usage}}{2}\relax 
+\doTocEntry\tocsection{1}{\csname a:TocLink\endcsname{1}{x1-30001}{QQ2-1-3}{Arming and Disarming}}{2}\relax 
+\doTocEntry\toclof{1}{\csname a:TocLink\endcsname{1}{x1-3001r1}{}{\ignorespaces Arming tray message}}{figure}\relax 
+\doTocEntry\toclof{2}{\csname a:TocLink\endcsname{1}{x1-3002r2}{}{\ignorespaces Disarming tray message}}{figure}\relax 
+\doTocEntry\tocsection{2}{\csname a:TocLink\endcsname{1}{x1-40002}{QQ2-1-6}{Cancelling an alarm}}{8}\relax 
+\doTocEntry\toclof{3}{\csname a:TocLink\endcsname{1}{x1-4001r3}{}{\ignorespaces Alarm tray notification}}{figure}\relax 
+\doTocEntry\toclof{4}{\csname a:TocLink\endcsname{1}{x1-4002r4}{}{\ignorespaces Alarm dialog box}}{figure}\relax 
+\doTocEntry\tocsection{3}{\csname a:TocLink\endcsname{1}{x1-50003}{QQ2-1-9}{Tray Icon Context Menu}}{14}\relax 
+\doTocEntry\toclof{5}{\csname a:TocLink\endcsname{1}{x1-5001r5}{}{\ignorespaces Tray Icon Context Menu}}{figure}\relax 
+\doTocEntry\tocsubsection{3.1}{\csname a:TocLink\endcsname{1}{x1-60003.1}{QQ2-1-11}{Triggering Alarm}}{17}\relax 
+\doTocEntry\tocpart{II}{\csname a:TocLink\endcsname{1}{x1-7000II}{QQ2-1-12}{Customizing Settings}}{17}\relax 
+\doTocEntry\tocsection{4}{\csname a:TocLink\endcsname{1}{x1-80004}{QQ2-1-13}{Accessing the Settings Window}}{17}\relax 
+\doTocEntry\toclof{6}{\csname a:TocLink\endcsname{1}{x1-8001r6}{}{\ignorespaces Settings window}}{figure}\relax 
+\doTocEntry\tocsection{5}{\csname a:TocLink\endcsname{1}{x1-90005}{QQ2-1-15}{Alarm Settings}}{20}\relax 
+\doTocEntry\tocsubsection{5.1}{\csname a:TocLink\endcsname{1}{x1-100005.1}{QQ2-1-16}{Alarm Triggers}}{20}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-110005.1}{QQ2-1-17}{Power cord}}{20}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-120005.1}{QQ2-1-18}{USB Device}}{20}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-130005.1}{QQ2-1-19}{Battery removal}}{20}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-140005.1}{QQ2-1-20}{Computer restart}}{20}\relax 
+\doTocEntry\tocsection{6}{\csname a:TocLink\endcsname{1}{x1-150006}{QQ2-1-21}{On Alarm}}{20}\relax 
+\doTocEntry\tocsubsection{6.1}{\csname a:TocLink\endcsname{1}{x1-160006.1}{QQ2-1-22}{Play Audio}}{21}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-170006.1}{QQ2-1-23}{Sounds}}{21}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-180006.1}{QQ2-1-24}{Increase Volume on Alarm}}{21}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-190006.1}{QQ2-1-25}{Test alarm}}{21}\relax 
+\doTocEntry\tocsubsection{6.2}{\csname a:TocLink\endcsname{1}{x1-200006.2}{QQ2-1-26}{Send email to self}}{21}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-210006.2}{QQ2-1-27}{SMTP Settings}}{21}\relax 
+\doTocEntry\tocsection{7}{\csname a:TocLink\endcsname{1}{x1-220007}{QQ2-1-28}{Program Settings}}{21}\relax 
+\doTocEntry\toclof{7}{\csname a:TocLink\endcsname{1}{x1-22001r7}{}{\ignorespaces Program Settings tab}}{figure}\relax 
+\doTocEntry\tocsubsection{7.1}{\csname a:TocLink\endcsname{1}{x1-230007.1}{QQ2-1-30}{Start program on computer restart}}{24}\relax 
+\doTocEntry\tocsubsection{7.2}{\csname a:TocLink\endcsname{1}{x1-240007.2}{QQ2-1-31}{Show ``Trigger Alarm'' in Context Menu}}{24}\relax 
+\doTocEntry\tocsubsection{7.3}{\csname a:TocLink\endcsname{1}{x1-250007.3}{QQ2-1-32}{Automatically send bug and crash reports}}{24}\relax 
