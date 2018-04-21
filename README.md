@@ -3,6 +3,8 @@ Theft alarm for a laptop
 
 ![screenshot of LaptopAlarm](https://i.imgur.com/UJux9Aa.png)
 
+[LaptopAlarm documentation](https://etnguyen03.github.io/LaptopAlarm/index.html)
+
 ----
 LaptopAlarm is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
