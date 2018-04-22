@@ -960,6 +960,11 @@ namespace LaptopAlarm
             }
         }
 
+        /// <summary>
+        /// Updates the status bar at the bottom of the settings window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (alarmArmed)
@@ -974,6 +979,16 @@ namespace LaptopAlarm
             {
                 toolStripStatusLabel2.Text = "Alarm triggered";
             }
+        }
+
+        /// <summary>
+        /// Handles link click in the "About" tab richtextbox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.LinkText);
         }
     }
 }
