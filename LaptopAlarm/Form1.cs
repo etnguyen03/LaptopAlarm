@@ -327,6 +327,12 @@ namespace LaptopAlarm
                 }
             }
         }
+
+        /// <summary>
+        /// Send bugs to developer check box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox11_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.enable_sentry = checkBox11.Checked;
@@ -343,11 +349,22 @@ namespace LaptopAlarm
             base.OnFormClosing(e);
         }
 
+        /// <summary>
+        /// Show form on context menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void showToolStripMenuItem_Click(object sender, EventArgs e)
         {
             allowVisible = true;
             Show();
         }
+
+        /// <summary>
+        /// Close button on context menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             allowClose = true;
@@ -384,6 +401,11 @@ namespace LaptopAlarm
             Properties.Settings.Default.Save();
         }
 
+        /// <summary>
+        /// Custom sound radiobutton
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton2.Checked)
@@ -426,6 +448,11 @@ namespace LaptopAlarm
             Properties.Settings.Default.Save();
         }
 
+        /// <summary>
+        /// Power cord check box changed method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
@@ -439,6 +466,11 @@ namespace LaptopAlarm
             Properties.Settings.Default.Save();
         }
 
+        /// <summary>
+        /// Default sound radiobutton
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
